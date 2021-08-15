@@ -51,3 +51,16 @@
 	jmp -
 +
 }
+
+
+!macro add16 .a, .b {
+	clc
+
+	lda .a
+	adc .b
+	sta .a
+
+	lda .a+1
+	adc .b+1
+	sta .a+1
+}

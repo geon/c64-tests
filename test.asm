@@ -21,16 +21,38 @@
 start
 	+beforeTests
 
-	+beginTest "This should pass."
+	+beginTest "add16 0 0"
 	lda #0
+	ldx #0
+	+stax $02
+	lda #0
+	ldx #0
+	+stax $04
+	+add16 $02, $04
+	lda $02
 	+endTest 0
 
-	+beginTest "This as well."
-	lda #123
-	+endTest 123
+	+beginTest "add16 $0101 $0202"
+	lda #1
+	ldx #1
+	+stax $02
+	lda #2
+	ldx #2
+	+stax $04
+	+add16 $02, $04
+	lda $02
+	+endTest $03
 
-	+beginTest "This should fail."
-	lda #124
-	+endTest 123
+	+beginTest "add16 $0101 $0204"
+	lda #1
+	ldx #1
+	+stax $02
+	lda #4
+	ldx #2
+	+stax $04
+	+add16 $02, $04
+	lda $02
+	+endTest $05
+
 
 	+afterTests
