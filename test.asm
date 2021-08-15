@@ -20,13 +20,6 @@
 
 ; Directly after the basic code.
 *=$080e
-jmp start
-
-
-
-
-
-
 
 start
 	+beforeTests
