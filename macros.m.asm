@@ -24,3 +24,30 @@
 	jmp @t
 +
 }
+
+
+!macro printPointer string {
+	ldy #0
+-
+	lda (string),y
+	beq +
+	jsr $ffd2
+	iny
+	jmp -
++
+}
+
+
+!macro printLine string {
+	jmp +
+.message !pet string,13,0
++
+	ldy #0
+-
+	lda .message,y
+	beq +
+	jsr $ffd2
+	iny
+	jmp -
++
+}
