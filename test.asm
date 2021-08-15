@@ -22,33 +22,27 @@ start
 	+beforeTests
 
 	+beginTest "add16 0 0"
-	lda #0
-	ldx #0
+	+ldaxImmediate $0000
 	+stax $02
-	lda #0
-	ldx #0
+	+ldaxImmediate $0000
 	+stax $04
 	+add16 $02, $04
 	lda $02
 	+endTest 0
 
 	+beginTest "add16 $0101 $0202"
-	lda #1
-	ldx #1
+	+ldaxImmediate $0101
 	+stax $02
-	lda #2
-	ldx #2
+	+ldaxImmediate $0202
 	+stax $04
 	+add16 $02, $04
 	lda $02
 	+endTest $03
 
 	+beginTest "add16 $0101 $0204"
-	lda #1
-	ldx #1
+	+ldaxImmediate $0101
 	+stax $02
-	lda #4
-	ldx #2
+	+ldaxImmediate $0204
 	+stax $04
 	+add16 $02, $04
 	lda $02

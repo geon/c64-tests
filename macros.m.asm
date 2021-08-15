@@ -1,4 +1,11 @@
 ; load A and X
+!macro ldaxImmediate .target {
+	lda #<.target
+	ldx #>.target
+}
+
+
+; load A and X
 !macro ldax .target {
 	lda .target
 	ldx .target + 1
