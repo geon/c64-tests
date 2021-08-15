@@ -48,5 +48,22 @@ start
 	lda $02
 	+endTest $05
 
+	+beginTest "add16 $0002 $00ff"
+	+ldaxImmediate $0002
+	+stax $02
+	+ldaxImmediate $00ff
+	+stax $04
+	+add16 $02, $04
+	lda $02
+	+endTest $01
+
+	+beginTest "add16 $00ff $0002"
+	+ldaxImmediate $00ff
+	+stax $02
+	+ldaxImmediate $0002
+	+stax $04
+	+add16 $02, $04
+	lda $02
+	+endTest $01
 
 	+afterTests
