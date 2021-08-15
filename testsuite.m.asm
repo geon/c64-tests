@@ -28,6 +28,9 @@
 }
 
 
+	red = 2
+	green = 5
+
 !macro afterTests {
     ; Display test result.
 	+printLine "----------------------------------------"

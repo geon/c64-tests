@@ -15,9 +15,6 @@
 ; null-pointer to next line (2 byte)
 !byte $0c,$08,$0a,$00,$9e,$20,$32,$30,$36,$32,$00, $00, $00
 
-	red = 2
-	green = 5
-
 ; Directly after the basic code.
 *=$080e
 
