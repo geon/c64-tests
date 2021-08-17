@@ -38,7 +38,7 @@
 	green = 5
 
 !macro afterTests {
-    ; Display test result.
+	; Display test result.
 	+printLine "----------------------------------------"
 	+printLine "All tests passed."
 	; Color for success.
