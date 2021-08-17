@@ -21,44 +21,36 @@
 start
 	+beforeTests
 
-	+beginTest "add16 $0000 $0000"
-	+ldaxImmediate $0000
+	+beginTest "add16 low bits"
+	+ldaxImmediate $0001
 	+stax $02
-	+ldaxImmediate $0000
+	+ldaxImmediate $0002
+	+stax $04
+	+add16 $02, $04
+	+endTest $02, $0003
+
+	+beginTest "add16 high bits"
+	+ldaxImmediate $0100
+	+stax $02
+	+ldaxImmediate $0200
+	+stax $04
+	+add16 $02, $04
+	+endTest $02, $0300
+
+	+beginTest "add16 overflow low bits"
+	+ldaxImmediate $00ff
+	+stax $02
+	+ldaxImmediate $0001
+	+stax $04
+	+add16 $02, $04
+	+endTest $02, $0100
+
+	+beginTest "add16 overflow high bits"
+	+ldaxImmediate $ff00
+	+stax $02
+	+ldaxImmediate $0100
 	+stax $04
 	+add16 $02, $04
 	+endTest $02, $0000
-
-	+beginTest "add16 $0101 $0202"
-	+ldaxImmediate $0101
-	+stax $02
-	+ldaxImmediate $0202
-	+stax $04
-	+add16 $02, $04
-	+endTest $02, $0303
-
-	+beginTest "add16 $0101 $0204"
-	+ldaxImmediate $0101
-	+stax $02
-	+ldaxImmediate $0204
-	+stax $04
-	+add16 $02, $04
-	+endTest $02, $0305
-
-	+beginTest "add16 $0002 $00ff"
-	+ldaxImmediate $0002
-	+stax $02
-	+ldaxImmediate $00ff
-	+stax $04
-	+add16 $02, $04
-	+endTest $02, $0101
-
-	+beginTest "add16 $00ff $0002"
-	+ldaxImmediate $00ff
-	+stax $02
-	+ldaxImmediate $0002
-	+stax $04
-	+add16 $02, $04
-	+endTest $02, $0101
 
 	+afterTests
