@@ -51,3 +51,6 @@ start
 	+add16_8Test $ffff, $01, $0000, "add16_8 overflow high bits"
 
 	+afterTests
+
+
+!src "wozPrintHex.asm"

@@ -21,13 +21,22 @@
 }
 
 
-!macro endTest result, okValue {
-	lda result
-	cmp #<okValue
+!macro endTest .result, .okValue {
+	lda .result
+	sta $06
+	lda .result+1
+	sta $06+1
+	lda #<.okValue
+	sta $08
+	lda #>.okValue
+	sta $08+1
+
+	lda .result
+	cmp #<.okValue
 	+bne error
 
-	lda result+1
-	cmp #>okValue
+	lda .result+1
+	cmp #>.okValue
 	+bne error
 
 	+printPointer $fb
@@ -48,6 +57,20 @@ error
 	+printLine "****************************************"
 	+printLine "Test failed:"
 	+printPointer $fb
+
+	+printLine "Expected:"
+	lda $08+1
+	jsr PRBYTE
+	lda $08
+	jsr PRBYTE
+	+printLine ""
+	+printLine "Actual:"
+	lda $06+1
+	jsr PRBYTE
+	lda $06
+	jsr PRBYTE
+	+printLine ""
+
 	; Color for error.
 	lda #red
 end
