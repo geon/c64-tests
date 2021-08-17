@@ -18,39 +18,22 @@
 ; Directly after the basic code.
 *=$080e
 
+!macro add16Test a, b, wanted, title {
+	+beginTest title
+	+ldaxImmediate a
+	+stax $02
+	+ldaxImmediate b
+	+stax $04
+	+add16 $02, $04
+	+endTest $02, wanted
+}
+
 start
 	+beforeTests
 
-	+beginTest "add16 low bits"
-	+ldaxImmediate $0001
-	+stax $02
-	+ldaxImmediate $0002
-	+stax $04
-	+add16 $02, $04
-	+endTest $02, $0003
-
-	+beginTest "add16 high bits"
-	+ldaxImmediate $0100
-	+stax $02
-	+ldaxImmediate $0200
-	+stax $04
-	+add16 $02, $04
-	+endTest $02, $0300
-
-	+beginTest "add16 overflow low bits"
-	+ldaxImmediate $00ff
-	+stax $02
-	+ldaxImmediate $0001
-	+stax $04
-	+add16 $02, $04
-	+endTest $02, $0100
-
-	+beginTest "add16 overflow high bits"
-	+ldaxImmediate $ff00
-	+stax $02
-	+ldaxImmediate $0100
-	+stax $04
-	+add16 $02, $04
-	+endTest $02, $0000
+	+add16Test $0001, $0002, $0003, "add16 low bits"
+	+add16Test $0100, $0200, $0300, "add16 high bits"
+	+add16Test $00ff, $0001, $0100, "add16 overflow low bits"
+	+add16Test $ff00, $0100, $0000, "add16 overflow high bits"
 
 	+afterTests
