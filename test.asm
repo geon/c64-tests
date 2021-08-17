@@ -27,7 +27,7 @@ start
 	+ldaxImmediate $0000
 	+stax $04
 	+add16 $02, $04
-	+endTest $02, $00
+	+endTest $02, $0000
 
 	+beginTest "add16 $0101 $0202"
 	+ldaxImmediate $0101
@@ -35,7 +35,7 @@ start
 	+ldaxImmediate $0202
 	+stax $04
 	+add16 $02, $04
-	+endTest $02, $03
+	+endTest $02, $0303
 
 	+beginTest "add16 $0101 $0204"
 	+ldaxImmediate $0101
@@ -43,7 +43,7 @@ start
 	+ldaxImmediate $0204
 	+stax $04
 	+add16 $02, $04
-	+endTest $02, $05
+	+endTest $02, $0305
 
 	+beginTest "add16 $0002 $00ff"
 	+ldaxImmediate $0002
@@ -51,7 +51,7 @@ start
 	+ldaxImmediate $00ff
 	+stax $04
 	+add16 $02, $04
-	+endTest $02, $01
+	+endTest $02, $0101
 
 	+beginTest "add16 $00ff $0002"
 	+ldaxImmediate $00ff
@@ -59,6 +59,6 @@ start
 	+ldaxImmediate $0002
 	+stax $04
 	+add16 $02, $04
-	+endTest $02, $01
+	+endTest $02, $0101
 
 	+afterTests

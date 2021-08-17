@@ -23,7 +23,7 @@
 
 !macro endTest result, okValue {
 	lda result
-	cmp #okValue
+	cmp #<okValue
 	+bne error
 	+printPointer $fb
 }
