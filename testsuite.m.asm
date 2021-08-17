@@ -25,6 +25,11 @@
 	lda result
 	cmp #<okValue
 	+bne error
+
+	lda result+1
+	cmp #>okValue
+	+bne error
+
 	+printPointer $fb
 }
 
