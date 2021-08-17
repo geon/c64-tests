@@ -28,6 +28,16 @@
 	+endTest $02, wanted
 }
 
+!macro add16_8Test a, b, wanted, title {
+	+beginTest title
+	+ldaxImmediate a
+	+stax $02
+	lda #b
+	sta $04
+	+add16_8 $02, $04
+	+endTest $02, wanted
+}
+
 start
 	+beforeTests
 
@@ -35,5 +45,9 @@ start
 	+add16Test $0100, $0200, $0300, "add16 high bits"
 	+add16Test $00ff, $0001, $0100, "add16 overflow low bits"
 	+add16Test $ff00, $0100, $0000, "add16 overflow high bits"
+
+	+add16_8Test $0001, $02, $0003, "add16_8 low bits"
+	+add16_8Test $00ff, $01, $0100, "add16_8 overflow low bits"
+	+add16_8Test $ffff, $01, $0000, "add16_8 overflow high bits"
 
 	+afterTests
