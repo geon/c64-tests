@@ -21,13 +21,13 @@
 start
 	+beforeTests
 
-	+beginTest "add16 0 0"
+	+beginTest "add16 $0000 $0000"
 	+ldaxImmediate $0000
 	+stax $02
 	+ldaxImmediate $0000
 	+stax $04
 	+add16 $02, $04
-	+endTest $02, 0
+	+endTest $02, $00
 
 	+beginTest "add16 $0101 $0202"
 	+ldaxImmediate $0101
