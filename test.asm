@@ -38,6 +38,16 @@
 	+endTest $02, wanted
 }
 
+!macro multiply8Test a, b, wanted, title {
+	+beginTest title
+	lda #a
+	sta $02
+	lda #b
+	sta $04
+	+multiply8 $02, $04
+	+endTest $02, wanted
+}
+
 start
 	+beforeTests
 
@@ -49,6 +59,14 @@ start
 	+add16_8Test $0001, $02, $0003, "add16_8 low bits"
 	+add16_8Test $00ff, $01, $0100, "add16_8 overflow low bits"
 	+add16_8Test $ffff, $01, $0000, "add16_8 overflow high bits"
+
+	+multiply8Test $00, $00, $00, "multiply8 both zero"
+	+multiply8Test $01, $01, $01, "multiply8 both one"
+	+multiply8Test $05, $01, $05, "multiply8 right one"
+	+multiply8Test $01, $00, $00, "multiply8 right zero"
+	+multiply8Test $01, $05, $05, "multiply8 left one"
+	+multiply8Test $00, $01, $00, "multiply8 left zero"
+	+multiply8Test $10, $10, $00, "multiply8 overflow"
 
 	+afterTests
 

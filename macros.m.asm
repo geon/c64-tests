@@ -84,3 +84,17 @@
 	adc #0
 	sta .a+1
 }
+
+
+!macro multiply8 .a, .b {
+	lda #0 ; Clear accumulator.
+	ldx .b ; Loop .b times.
+	clc
+-
+	dex
+	bmi +
+	adc .a
+	jmp -
++
+	sta .a
+}
