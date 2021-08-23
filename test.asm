@@ -67,6 +67,7 @@ start
 	+multiply8Test $01, $05, $05, "multiply8 left one"
 	+multiply8Test $00, $01, $00, "multiply8 left zero"
 	+multiply8Test $10, $10, $00, "multiply8 overflow"
+	+multiply8Test 5, 5, 25, "multiply8 square"
 
 	+afterTests
 
