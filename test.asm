@@ -1,6 +1,7 @@
 ;!src <6502/std.a>
 !src "macros.m.asm"
 !src "testsuite.m.asm"
+!src "worm.asm"
 
 ; Bootstrap
 ; Beginning of basic code area.
@@ -68,6 +69,18 @@ start
 	+multiply8Test $00, $01, $00, "multiply8 left zero"
 	+multiply8Test $10, $10, $00, "multiply8 overflow"
 	+multiply8Test 5, 5, 25, "multiply8 square"
+
+	; Worm tests.
+	; Allocate worm for tests.
+	jmp +
+.worm
+	+wormAllocate ; Allocate som bytes here
++
+
+	+beginTest "Initialize worm. Length should be 0."
+	+wormInitialize .worm
+	+wormGetLength .worm, $02
+	+endTest $02, 0
 
 	+afterTests
 
