@@ -82,6 +82,11 @@ start
 	+wormGetLength .worm, $02
 	+endTest $02, 0
 
+	+beginTest "Increment length. Length should be 1."
+	+wormIncrementLength .worm
+	+wormGetLength .worm, $02
+	+endTest $02, 1
+
 	+afterTests
 
 

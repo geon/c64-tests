@@ -20,3 +20,9 @@
 	lda .worm + 0
 	sta .value
 }
+
+!macro wormIncrementLength .worm {
+	+wormGetLength .worm, $02
+	inc $02
+	+wormSetLength .worm, $02
+}
