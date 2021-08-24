@@ -87,6 +87,14 @@ start
 	+wormGetLength .worm, $02
 	+endTest $02, 1
 
+	+beginTest "Set position."
+	lda #$0f
+	sta $02
+	sta $03
+	+wormSetPosition .worm, $02, $03
+	+wormGetPosition .worm, $02, $03
+	+endTest $02, $0f0f
+
 	+afterTests
 
 
