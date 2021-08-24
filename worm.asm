@@ -2,6 +2,7 @@
 	!byte $aa ; length
 	!byte $bb ; xpos
 	!byte $cc ; ypos
+	!byte $dd ; direction
 }
 
 
@@ -44,4 +45,16 @@
 	ldy .worm + 2
 	stx .x
 	sty .y
+}
+
+
+!macro wormSetDirection .worm, .direction {
+	lda .direction
+	sta .worm + 3
+}
+
+
+!macro wormGetDirection .worm, .direction {
+	lda .worm + 3
+	sta .direction
 }
