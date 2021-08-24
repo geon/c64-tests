@@ -1,7 +1,6 @@
 !macro wormAllocate {
 	!byte $aa ; length
-	!byte $bb ; xpos
-	!byte $cc ; ypos
+	!word $bbcc ; pos, index into screen array
 	!byte $dd ; direction
 }
 
@@ -32,19 +31,15 @@
 }
 
 
-!macro wormSetPosition .worm, .x, .y {
-	ldx .x
-	ldy .y
-	stx .worm + 1
-	sty .worm + 2
+!macro wormSetPosition .worm, .pos {
+	+ldax .pos
+	+stax .worm + 1
 }
 
 
-!macro wormGetPosition .worm, .x, .y {
-	ldx .worm + 1
-	ldy .worm + 2
-	stx .x
-	sty .y
+!macro wormGetPosition .worm, .pos {
+	+ldax .worm + 1
+	+stax .pos
 }
 
 
