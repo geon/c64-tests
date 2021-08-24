@@ -53,3 +53,19 @@
 	lda .worm + 3
 	sta .direction
 }
+
+
+!macro wormMoveForward .worm {
+	jmp +
+	; offsets +x, +y, -x, -y
+.table	!byte 1, 40, -1, -40
++
+	+wormGetDirection .worm, $02
+	ldx $02
+	lda .table, x
+	sta $02
+
+	+wormGetPosition .worm, $04
+	+add16_8 $04, $02
+	+wormSetPosition .worm, $04
+}

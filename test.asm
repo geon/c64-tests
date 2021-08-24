@@ -94,7 +94,7 @@ start
 	+wormGetPosition .worm, $02
 	+endTest $02, $0100
 
-	+beginTest "Set direction."
+	+beginTest "Set direction. (down)"
 	lda #$01
 	sta $02
 	lda #$00
@@ -102,6 +102,11 @@ start
 	+wormSetDirection .worm, $02
 	+wormGetDirection .worm, $02
 	+endTest $02, $01
+
+	+beginTest "Move forward."
+	+wormMoveForward .worm
+	+wormGetPosition .worm, $02
+	+endTest $02, $0128
 
 	+afterTests
 
