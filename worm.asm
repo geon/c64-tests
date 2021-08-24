@@ -58,14 +58,17 @@
 !macro wormMoveForward .worm {
 	jmp +
 	; offsets +x, +y, -x, -y
-.table	!byte 1, 40, -1, -40
+.table	!word 1, 40, -1, -40
 +
 	+wormGetDirection .worm, $02
+	rol $02 ; Multiply by 2, because words, not bytes.
 	ldx $02
 	lda .table, x
 	sta $02
+	lda .table+1, x
+	sta $03
 
 	+wormGetPosition .worm, $04
-	+add16_8 $04, $02
+	+add16 $04, $02
 	+wormSetPosition .worm, $04
 }

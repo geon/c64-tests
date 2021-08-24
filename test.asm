@@ -108,6 +108,22 @@ start
 	+wormGetPosition .worm, $02
 	+endTest $02, $0128
 
+	+beginTest "Move right."
+	lda #$00
+	sta $02
+	+wormSetDirection .worm, $02
+	+wormMoveForward .worm
+	+wormGetPosition .worm, $02
+	+endTest $02, $0129
+
+	+beginTest "Move up."
+	lda #$03
+	sta $02
+	+wormSetDirection .worm, $02
+	+wormMoveForward .worm
+	+wormGetPosition .worm, $02
+	+endTest $02, $0101
+
 	+afterTests
 
 
