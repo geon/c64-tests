@@ -133,6 +133,32 @@ start
 	+wormGetTail .worm, $02
 	+endTest8 $02, 1
 
+	+beginTest "Move more. Tail should stay 1."
+	+wormMoveForward .worm
+	+wormGetTail .worm, $02
+	+endTest8 $02, 1
+
+	+beginTest "Grow tail twice. Tail should stay 1."
+	+wormGrowTail .worm
+	+wormGrowTail .worm
+	+wormGetTail .worm, $02
+	+endTest8 $02, 1
+
+	+beginTest "Move 1. Tail should be 2."
+	+wormMoveForward .worm
+	+wormGetTail .worm, $02
+	+endTest8 $02, 2
+
+	+beginTest "Move 2. Tail should be 3."
+	+wormMoveForward .worm
+	+wormGetTail .worm, $02
+	+endTest8 $02, 3
+
+	+beginTest "Move more. Tail should stay 3."
+	+wormMoveForward .worm
+	+wormGetTail .worm, $02
+	+endTest8 $02, 3
+
 	+afterTests
 
 
