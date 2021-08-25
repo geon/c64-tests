@@ -22,20 +22,15 @@
 
 
 !macro endTest .result, .okValue {
-	lda .result
-	sta $06
-	lda .result+1
-	sta $06+1
-	lda #<.okValue
-	sta $08
-	lda #>.okValue
-	sta $08+1
+	+ldaxImmediate .okValue
+	+stax $08
+	+ldax .result
+	+stax $06
 
-	lda .result
 	cmp #<.okValue
 	+bne error
 
-	lda .result+1
+	txa
 	cmp #>.okValue
 	+bne error
 
