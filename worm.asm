@@ -77,3 +77,7 @@
 !macro wormGetTail .worm, .length {
 	+wormGetLength .worm, .length
 }
+
+
+!macro wormGrowTail .worm {
+}

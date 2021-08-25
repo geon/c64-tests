@@ -128,6 +128,11 @@ start
 	+wormGetTail .worm, $02
 	+endTest8 $02, 1
 
+	+beginTest "Grow tail."
+	+wormGrowTail .worm
+	+wormGetTail .worm, $02
+	+endTest8 $02, 1
+
 	+afterTests
 
 
