@@ -124,6 +124,10 @@ start
 	+wormGetPosition .worm, $02
 	+endTest $02, $0101
 
+	+beginTest "Tail."
+	+wormGetTail .worm, $02
+	+endTest8 $02, 1
+
 	+afterTests
 
 

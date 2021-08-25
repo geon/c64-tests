@@ -72,3 +72,8 @@
 	+add16 $04, $02
 	+wormSetPosition .worm, $04
 }
+
+
+!macro wormGetTail .worm, .length {
+	+wormGetLength .worm, .length
+}
