@@ -82,11 +82,6 @@ start
 	+wormGetLength .worm, $02
 	+endTest $02, 0
 
-	+beginTest "Increment length. Length should be 1."
-	+wormIncrementLength .worm
-	+wormGetLength .worm, $02
-	+endTest $02, 1
-
 	+beginTest "Set position."
 	+ldaxImmediate $0100
 	+stax $02
@@ -126,7 +121,7 @@ start
 
 	+beginTest "Tail."
 	+wormGetTail .worm, $02
-	+endTest8 $02, 1
+	+endTest8 $02, 0
 
 	+beginTest "Grow tail."
 	+wormGrowTail .worm

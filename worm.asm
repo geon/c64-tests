@@ -24,11 +24,6 @@
 }
 
 
-!macro wormIncrementLength .worm {
-	+wormGetLength .worm, $02
-	inc $02
-	+wormSetLength .worm, $02
-}
 
 
 !macro wormSetPosition .worm, .pos {
