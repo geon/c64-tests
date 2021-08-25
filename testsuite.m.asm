@@ -38,6 +38,21 @@
 }
 
 
+!macro endTest8 .result, .okValue {
+	lda #.okValue
+	ldx #$00
+	+stax $08
+	lda .result
+	ldx #$00
+	+stax $06
+
+	cmp #.okValue
+	+bne error
+
+	+printPointer $fb
+}
+
+
 	red = 2
 	green = 5
 

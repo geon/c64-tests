@@ -46,7 +46,7 @@
 	lda #b
 	sta $04
 	+multiply8 $02, $04
-	+endTest $02, wanted
+	+endTest8 $02, wanted
 }
 
 start
