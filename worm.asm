@@ -2,6 +2,7 @@
 	!byte $aa ; length
 	!word $bbcc ; pos, index into screen array
 	!byte $dd ; direction
+	!byte $ff ; wantedLength
 }
 
 
@@ -9,6 +10,7 @@
 	lda #0
 	sta $02
 	+wormSetLength .worm, $02
+	+wormSetWantedLength .worm, $02
 }
 
 
@@ -24,6 +26,16 @@
 }
 
 
+!macro wormSetWantedLength .worm, .value {
+	lda .value;
+	sta .worm + 4
+}
+
+
+!macro wormGetWantedLength .worm, .value {
+	lda .worm + 4
+	sta .value
+}
 
 
 !macro wormSetPosition .worm, .pos {
@@ -55,6 +67,7 @@
 	; offsets +x, +y, -x, -y
 .table	!word 1, 40, -1, -40
 +
+	; Find the offset in the table, by the direction.
 	+wormGetDirection .worm, $02
 	rol $02 ; Multiply by 2, because words, not bytes.
 	ldx $02
@@ -63,9 +76,20 @@
 	lda .table+1, x
 	sta $03
 
+	; Move the head.
 	+wormGetPosition .worm, $04
 	+add16 $04, $02
 	+wormSetPosition .worm, $04
+
+	; Grow if too short.
+	+wormGetLength .worm, $20
+	+wormGetWantedLength .worm, $40
+	lda $20
+	cmp $40
+	bpl +
+	inc $20
+	+wormSetLength .worm, $20
++
 }
 
 
@@ -75,4 +99,7 @@
 
 
 !macro wormGrowTail .worm {
+	+wormGetWantedLength .worm, $60
+	inc $60
+	+wormSetWantedLength .worm, $60
 }

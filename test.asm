@@ -119,12 +119,17 @@ start
 	+wormGetPosition .worm, $02
 	+endTest $02, $0101
 
-	+beginTest "Tail."
+	+beginTest "Tail should be length 0."
 	+wormGetTail .worm, $02
 	+endTest8 $02, 0
 
-	+beginTest "Grow tail."
+	+beginTest "Grow tail. Tail should still be length 0."
 	+wormGrowTail .worm
+	+wormGetTail .worm, $02
+	+endTest8 $02, 0
+
+	+beginTest "After move. Tail should be length 1."
+	+wormMoveForward .worm
 	+wormGetTail .worm, $02
 	+endTest8 $02, 1
 
