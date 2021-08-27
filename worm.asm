@@ -82,13 +82,13 @@
 	+wormSetPosition .worm, $04
 
 	; Grow if too short.
-	+wormGetLength .worm, $20
-	+wormGetWantedLength .worm, $40
-	lda $20
-	cmp $40
+	+wormGetLength .worm, $02
+	+wormGetWantedLength .worm, $04
+	lda $02
+	cmp $04
 	bpl +
-	inc $20
-	+wormSetLength .worm, $20
+	inc $02
+	+wormSetLength .worm, $02
 +
 }
 
@@ -99,7 +99,7 @@
 
 
 !macro wormGrowTail .worm {
-	+wormGetWantedLength .worm, $60
-	inc $60
-	+wormSetWantedLength .worm, $60
+	+wormGetWantedLength .worm, $02
+	inc $02
+	+wormSetWantedLength .worm, $02
 }
