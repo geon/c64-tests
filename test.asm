@@ -2,6 +2,7 @@
 !src "macros.m.asm"
 !src "testsuite.m.asm"
 !src "worm.asm"
+!src "circular-buffer.asm"
 
 ; Bootstrap
 ; Beginning of basic code area.
@@ -158,6 +159,14 @@ start
 	+wormMoveForward .worm
 	+wormGetTail .worm, $02
 	+endTest8 $02, 3
+
+	; CircularBuffer tests.
+	; Allocate and initialize circular buffer for tests.
+	jmp +
+.circularBuffer
+	+circularBufferAllocate
++
+	+circularBufferInitialize .circularBuffer
 
 	+afterTests
 
