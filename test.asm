@@ -168,6 +168,13 @@ start
 +
 	+circularBufferInitialize .circularBuffer
 
+	+beginTest "Push should grow buffer."
+	lda #$12
+	sta $04
+	+circularBufferPush .circularBuffer, $04
+	+circularBufferGetLength .circularBuffer, $02
+	+endTest8 $02, 1
+
 	+afterTests
 
 
