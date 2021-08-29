@@ -1,5 +1,6 @@
 !macro circularBufferAllocate {
 	!byte $aa ; end
+	!fill $ff, $bb ; values
 }
 
 
@@ -26,7 +27,20 @@
 	+circularBufferSetEnd .buffer, $02
 }
 
+
+!macro circularBufferGetIterator .buffer, .address {
+	+ldaxImmediate .buffer + 1
+	+stax .address
+}
+
+
 !macro circularBufferPush .buffer, .value {
+	; Save the value.
+	+circularBufferGetIterator .buffer,  $02
+	lda .value
+	ldy #0;
+	sta ($02), y
+
 	; Increment lenght
 	+circularBufferGetEnd .buffer, $02
 	inc $02

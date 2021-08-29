@@ -175,6 +175,13 @@ start
 	+circularBufferGetLength .circularBuffer, $02
 	+endTest8 $02, 1
 
+	+beginTest "The value should be in the buffer."
+	+circularBufferGetIterator .circularBuffer, $30
+	ldy #0
+	lda ($30), y
+	sta $40
+	+endTest8 $40, $12
+
 	+afterTests
 
 
