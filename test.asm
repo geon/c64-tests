@@ -300,6 +300,17 @@ start
 	sta $40
 	+endTest8 $40, $12
 
+	+beginTest "Push second value."
+	lda #$34
+	sta $04
+	+circularBufferPush .circularBuffer, $04
+	+circularBufferGetIterator .circularBuffer, $02
+	+circularBufferGetIteratorNext .circularBuffer, $02
+	ldy #0
+	lda ($02), y
+	sta $02
+	+endTest8 $02, $34
+
 	+afterTests
 
 

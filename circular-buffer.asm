@@ -34,9 +34,19 @@
 }
 
 
+!macro circularBufferGetIteratorNext .buffer, .iterator {
+	; Advance iterator.
+	lda #1
+	sta $06
+	+add16_8 .iterator, $06
+}
+
+
 !macro circularBufferPush .buffer, .value {
 	; Save the value.
 	+circularBufferGetIterator .buffer,  $02
+	+circularBufferGetLength .buffer, $06
+	+add16_8 $02, $06
 	lda .value
 	ldy #0;
 	sta ($02), y
