@@ -27,13 +27,8 @@
 	+ldax .result
 	+stax $06
 
-	cmp #<.okValue
+	+cmp16 $08, $06
 	+bne error
-
-	txa
-	cmp #>.okValue
-	+bne error
-
 	+printPointer $fb
 }
 
