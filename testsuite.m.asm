@@ -53,6 +53,82 @@
 }
 
 
+!macro endTestFlagZClear {
+	; Set $02 to content of z flag (0/1).
+	bne .then ; bne: branch on z = 0
+	jmp .else
+.then
+	; z = 0
+	lda #0
+	sta $02
+	jmp .endif
+.else
+	; z = 1
+	lda #1
+	sta $02
+.endif
+
+	+endTest8 $02, $00
+}
+
+
+!macro endTestFlagZSet {
+	; Set $02 to content of z flag (0/1).
+	bne .then ; bne: branch on z = 0
+	jmp .else
+.then
+	; z = 0
+	lda #0
+	sta $02
+	jmp .endif
+.else
+	; z = 1
+	lda #1
+	sta $02
+.endif
+
+	+endTest8 $02, $01
+}
+
+
+!macro endTestFlagNClear {
+	; Set $02 to content of n flag (0/1).
+	bmi .then ; bmi: branch on n = 1
+	jmp .else
+.then
+	; n = 1
+	lda #1
+	sta $02
+	jmp .endif
+.else
+	; n = 0
+	lda #0
+	sta $02
+.endif
+
+	+endTest8 $02, $00
+}
+
+
+!macro endTestFlagNSet {
+	; Set $02 to content of n flag (0/1).
+	bmi .then ; bmi: branch on n = 1
+	jmp .else
+.then
+	; n = 1
+	lda #1
+	sta $02
+	jmp .endif
+.else
+	; n = 0
+	lda #0
+	sta $02
+.endif
+
+	+endTest8 $02, $01
+}
+
+
 	red = 2
 	green = 5
 

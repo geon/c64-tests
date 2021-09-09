@@ -53,6 +53,60 @@
 start
 	+beforeTests
 
+	+beginTest "cmp $11, $22 endTestFlagZClear"
+	lda #$11
+	sta $02
+	lda #$22
+	sta $04
+	lda $02
+	cmp $04
+	+endTestFlagZClear
+
+	+beginTest "cmp $22, $11 endTestFlagZClear"
+	lda #$22
+	sta $02
+	lda #$11
+	sta $04
+	lda $02
+	cmp $04
+	+endTestFlagZClear
+
+	+beginTest "cmp $aa, $aa endTestFlagZSet"
+	lda #$aa
+	sta $02
+	lda #$aa
+	sta $04
+	lda $02
+	cmp $04
+	+endTestFlagZSet
+
+	+beginTest "cmp $11, $22 endTestFlagNSet"
+	lda #$11
+	sta $02
+	lda #$22
+	sta $04
+	lda $02
+	cmp $04
+	+endTestFlagNSet
+
+	+beginTest "cmp $22, $11 endTestFlagNClear"
+	lda #$22
+	sta $02
+	lda #$11
+	sta $04
+	lda $02
+	cmp $04
+	+endTestFlagNClear
+
+	+beginTest "cmp $aa, $aa endTestFlagNClear"
+	lda #$aa
+	sta $02
+	lda #$aa
+	sta $04
+	lda $02
+	cmp $04
+	+endTestFlagNClear
+
 	+add16Test $0001, $0002, $0003, "add16 low bits"
 	+add16Test $0100, $0200, $0300, "add16 high bits"
 	+add16Test $00ff, $0001, $0100, "add16 overflow low bits"
