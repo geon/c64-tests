@@ -107,6 +107,70 @@ start
 	cmp $04
 	+endTestFlagNClear
 
+	+beginTest "+cmp16 $1111, $2222 endTestFlagZClear"
+	+ldaxImmediate $1111
+	+stax $02
+	+ldaxImmediate $2222
+	+stax $04
+	+cmp16 $02, $04
+	+endTestFlagZClear
+
+	+beginTest "+cmp16 $2222, $1111 endTestFlagZClear"
+	+ldaxImmediate $2222
+	+stax $02
+	+ldaxImmediate $1111
+	+stax $04
+	+cmp16 $02, $04
+	+endTestFlagZClear
+
+	+beginTest "+cmp16 $aaaa, $aaaa endTestFlagZSet"
+	+ldaxImmediate $aaaa
+	+stax $02
+	+ldaxImmediate $aaaa
+	+stax $04
+	+cmp16 $02, $04
+	+endTestFlagZSet
+
+	+beginTest "+cmp16 $1111, $2222 endTestFlagNSet"
+	+ldaxImmediate $1111
+	+stax $02
+	+ldaxImmediate $2222
+	+stax $04
+	+cmp16 $02, $04
+	+endTestFlagNSet
+
+	+beginTest "+cmp16 $2222, $1111 endTestFlagNClear"
+	+ldaxImmediate $2222
+	+stax $02
+	+ldaxImmediate $1111
+	+stax $04
+	+cmp16 $02, $04
+	+endTestFlagNClear
+
+	+beginTest "+cmp16 $aaaa, $aaaa endTestFlagNClear"
+	+ldaxImmediate $aaaa
+	+stax $02
+	+ldaxImmediate $aaaa
+	+stax $04
+	+cmp16 $02, $04
+	+endTestFlagNClear
+
+	+beginTest "+cmp16 $0000, $00ff endTestFlagNSet"
+	+ldaxImmediate $0000
+	+stax $02
+	+ldaxImmediate $00ff
+	+stax $04
+	+cmp16 $02, $04
+	+endTestFlagNSet
+
+	+beginTest "+cmp16 $00ff, $0000 endTestFlagNClear"
+	+ldaxImmediate $00ff
+	+stax $02
+	+ldaxImmediate $0000
+	+stax $04
+	+cmp16 $02, $04
+	+endTestFlagNClear
+
 	+add16Test $0001, $0002, $0003, "add16 low bits"
 	+add16Test $0100, $0200, $0300, "add16 high bits"
 	+add16Test $00ff, $0001, $0100, "add16 overflow low bits"
