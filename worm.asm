@@ -1,3 +1,6 @@
+!ifdef worm_asm !eof
+worm_asm = 1
+
 !macro wormAllocate {
 	!byte $aa ; length
 	!word $bbcc ; pos, index into screen array

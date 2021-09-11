@@ -1,3 +1,6 @@
+!ifdef macros_m_asm !eof
+macros_m_asm = 1
+
 ; load A and X
 !macro ldaxImmediate .target {
 	lda #<.target
