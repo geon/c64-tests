@@ -38,10 +38,22 @@ circular_buffer_asm = 1
 
 
 !macro circularBufferGetIteratorNext .buffer, .iterator {
+	; Find end pointer. (One step past the last element.)
+	+circularBufferGetIterator .buffer, $10
+	+circularBufferGetLength .buffer, $04
+	+add16_8 $10, $04
+
 	; Advance iterator.
 	lda #1
 	sta $06
 	+add16_8 .iterator, $06
+
+	+cmp16 .iterator, $10
+	bmi +
+	; Out of range, so return null pointer.
+	+ldaxImmediate $0000
+	+stax .iterator
++
 }
 
 

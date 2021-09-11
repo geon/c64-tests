@@ -311,6 +311,12 @@ start
 	sta $02
 	+endTest8 $02, $34
 
+	+beginTest "Iterator should be null terminated."
+	+circularBufferGetIterator .circularBuffer, $02
+	+circularBufferGetIteratorNext .circularBuffer, $02
+	+circularBufferGetIteratorNext .circularBuffer, $02
+	+endTest $02, $0000
+
 	+afterTests
 
 
