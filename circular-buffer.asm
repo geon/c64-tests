@@ -71,3 +71,11 @@ circular_buffer_asm = 1
 	inc $02
 	+circularBufferSetEnd .buffer, $02
 }
+
+!macro circularBufferPop .buffer, .return {
+	; Save the value.
+	+circularBufferGetIterator .buffer,  $02
+	ldy #0;
+	lda ($02), y
+	sta .return
+}

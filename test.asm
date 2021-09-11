@@ -317,6 +317,10 @@ start
 	+circularBufferGetIteratorNext .circularBuffer, $02
 	+endTest $02, $0000
 
+	+beginTest "Pop first value."
+	+circularBufferPop .circularBuffer, $02
+	+endTest8 $02, $12
+
 	+afterTests
 
 
