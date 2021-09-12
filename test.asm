@@ -305,16 +305,14 @@ start
 	sta $04
 	+circularBufferPush .circularBuffer, $04
 	+circularBufferGetIterator .circularBuffer, $02
-	+circularBufferGetIteratorNext .circularBuffer, $02
-	ldy #0
-	lda ($02), y
-	sta $02
-	+endTest8 $02, $34
+	+circularBufferGetIteratorNext .circularBuffer, $02, $08
+	+circularBufferGetIteratorNext .circularBuffer, $02, $08
+	+endTest8 $08, $34
 
 	+beginTest "Iterator should be null terminated."
 	+circularBufferGetIterator .circularBuffer, $02
-	+circularBufferGetIteratorNext .circularBuffer, $02
-	+circularBufferGetIteratorNext .circularBuffer, $02
+	+circularBufferGetIteratorNext .circularBuffer, $02, $08
+	+circularBufferGetIteratorNext .circularBuffer, $02, $08
 	+endTest $02, $0000
 
 	+beginTest "Pop first value."

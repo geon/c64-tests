@@ -37,7 +37,12 @@ circular_buffer_asm = 1
 }
 
 
-!macro circularBufferGetIteratorNext .buffer, .iterator {
+!macro circularBufferGetIteratorNext .buffer, .iterator, .return{
+	; Read the value to return.
+	ldy #0
+	lda (.iterator), y
+	sta .return
+
 	; Find end pointer. (One step past the last element.)
 	+circularBufferGetIterator .buffer, $10
 	+circularBufferGetLength .buffer, $04
