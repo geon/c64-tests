@@ -1,10 +1,12 @@
+!src "bootstrap.asm"
+jmp start
+
 ;!src <6502/std.a>
 !src "macros.m.asm"
 !src "testsuite.m.asm"
 !src "worm.asm"
 !src "circular-buffer.asm"
-
-!src "bootstrap.asm"
+!src "wozPrintHex.asm"
 
 !macro add16Test a, b, wanted, title {
 	+beginTest title
@@ -306,6 +308,3 @@ start
 	+endTest8 $02, $12
 
 	+afterTests
-
-
-!src "wozPrintHex.asm"
