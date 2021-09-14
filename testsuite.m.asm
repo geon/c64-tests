@@ -1,6 +1,3 @@
-!ifdef testsuite_m_asm !eof
-testsuite_m_asm = 1
-
 !macro beforeTests {
 	; Set screen mode to lower/upper case.
 	lda #23

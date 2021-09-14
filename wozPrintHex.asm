@@ -1,7 +1,3 @@
-; Having the include guard here made failing tests crash.
-; !ifdef wozPrintHex_asm !eof
-; wozPrintHex_asm = 1
-
 ; https://gist.github.com/nobuh/1161983
 ; Hex print by Woz, 1976.
 

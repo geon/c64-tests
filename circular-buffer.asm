@@ -1,8 +1,3 @@
-!ifdef circular_buffer_asm !eof
-circular_buffer_asm = 1
-
-	!byte $dd
-
 !macro circularBufferAllocate {
 	!byte $aa ; end
 	!fill $ff, $bb ; values
@@ -26,6 +21,7 @@ circular_buffer_asm = 1
 }
 
 
+!byte $dd
 !macro circularBufferInitialize .buffer {
 	lda #0
 	sta $02
