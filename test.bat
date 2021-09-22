@@ -1,4 +1,4 @@
-"C:\Program Files\acme\acme.exe" --cpu 6510 --format cbm -o test.prg test.asm
+java -jar KickAss.jar test.asm
 if %errorlevel% neq 0 (
     pause
  ) else (
