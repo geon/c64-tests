@@ -65,126 +65,81 @@ jmp start
 	.eval deallocateZpByte(_04)
 }
 
+.macro cmpTest (a, b, title) {
+	beginTest(title)
+	lda #a
+	sta $02
+	lda #b
+	sta $04
+	lda $02
+	cmp $04
+}
+
+.macro cmpTestFlagZClear (a, b, title) {
+	cmpTest(a, b, title)
+	endTestFlagZClear()
+}
+
+.macro cmpTestFlagZSet (a, b, title) {
+	cmpTest(a, b, title)
+	endTestFlagZSet()
+}
+
+.macro cmpTestFlagNClear (a, b, title) {
+	cmpTest(a, b, title)
+	endTestFlagNClear()
+}
+
+.macro cmpTestFlagNSet (a, b, title) {
+	cmpTest(a, b, title)
+	endTestFlagNSet()
+}
+
+.macro cmp16Test (a, b, title) {
+	beginTest(title)
+	ldaxImmediate(a)
+	stax($02)
+	ldaxImmediate(b)
+	stax($04)
+	cmp16($02, $04)
+}
+
+.macro cmp16TestFlagZClear (a, b, title) {
+	cmp16Test(a, b, title)
+	endTestFlagZClear()
+}
+
+.macro cmp16TestFlagZSet (a, b, title) {
+	cmp16Test(a, b, title)
+	endTestFlagZSet()
+}
+
+.macro cmp16TestFlagNClear (a, b, title) {
+	cmp16Test(a, b, title)
+	endTestFlagNClear()
+}
+
+.macro cmp16TestFlagNSet (a, b, title) {
+	cmp16Test(a, b, title)
+	endTestFlagNSet()
+}
+
 start:
 	beforeTests()
 
-	beginTest("cmp $11, $22 endTestFlagZClear")
-	lda #$11
-	sta $02
-	lda #$22
-	sta $04
-	lda $02
-	cmp $04
-	endTestFlagZClear()
+	cmpTestFlagZClear($11, $22, "cmp $11, $22 endTestFlagZClear")
+	cmpTestFlagZClear($22, $11, "cmp $22, $11 endTestFlagZClear")
+	cmpTestFlagZSet($aa, $aa, "cmp $aa, $aa endTestFlagZSet")
+	cmpTestFlagNSet($11, $22, "cmp $11, $22 endTestFlagNSet")
+	cmpTestFlagNClear($22, $11, "cmp $22, $11 endTestFlagNClear")
+	cmpTestFlagNClear($aa, $aa, "cmp $aa, $aa endTestFlagNClear")
 
-	beginTest("cmp $22, $11 endTestFlagZClear")
-	lda #$22
-	sta $02
-	lda #$11
-	sta $04
-	lda $02
-	cmp $04
-	endTestFlagZClear()
-
-	beginTest("cmp $aa, $aa endTestFlagZSet")
-	lda #$aa
-	sta $02
-	lda #$aa
-	sta $04
-	lda $02
-	cmp $04
-	endTestFlagZSet()
-
-	beginTest("cmp $11, $22 endTestFlagNSet")
-	lda #$11
-	sta $02
-	lda #$22
-	sta $04
-	lda $02
-	cmp $04
-	endTestFlagNSet()
-
-	beginTest("cmp $22, $11 endTestFlagNClear")
-	lda #$22
-	sta $02
-	lda #$11
-	sta $04
-	lda $02
-	cmp $04
-	endTestFlagNClear()
-
-	beginTest("cmp $aa, $aa endTestFlagNClear")
-	lda #$aa
-	sta $02
-	lda #$aa
-	sta $04
-	lda $02
-	cmp $04
-	endTestFlagNClear()
-
-	beginTest("+cmp16 $1111, $2222 endTestFlagZClear")
-	ldaxImmediate($1111)
-	stax($02)
-	ldaxImmediate($2222)
-	stax($04)
-	cmp16($02, $04)
-	endTestFlagZClear()
-
-	beginTest("+cmp16 $2222, $1111 endTestFlagZClear")
-	ldaxImmediate($2222)
-	stax($02)
-	ldaxImmediate($1111)
-	stax($04)
-	cmp16($02, $04)
-	endTestFlagZClear()
-
-	beginTest("+cmp16 $aaaa, $aaaa endTestFlagZSet")
-	ldaxImmediate($aaaa)
-	stax($02)
-	ldaxImmediate($aaaa)
-	stax($04)
-	cmp16($02, $04)
-	endTestFlagZSet()
-
-	beginTest("+cmp16 $1111, $2222 endTestFlagNSet")
-	ldaxImmediate($1111)
-	stax($02)
-	ldaxImmediate($2222)
-	stax($04)
-	cmp16($02, $04)
-	endTestFlagNSet()
-
-	beginTest("+cmp16 $2222, $1111 endTestFlagNClear")
-	ldaxImmediate($2222)
-	stax($02)
-	ldaxImmediate($1111)
-	stax($04)
-	cmp16($02, $04)
-	endTestFlagNClear()
-
-	beginTest("+cmp16 $aaaa, $aaaa endTestFlagNClear")
-	ldaxImmediate($aaaa)
-	stax($02)
-	ldaxImmediate($aaaa)
-	stax($04)
-	cmp16($02, $04)
-	endTestFlagNClear()
-
-	beginTest("+cmp16 $0000, $00ff endTestFlagNSet")
-	ldaxImmediate($0000)
-	stax($02)
-	ldaxImmediate($00ff)
-	stax($04)
-	cmp16($02, $04)
-	endTestFlagNSet()
-
-	beginTest("+cmp16 $00ff, $0000 endTestFlagNClear")
-	ldaxImmediate($00ff)
-	stax($02)
-	ldaxImmediate($0000)
-	stax($04)
-	cmp16($02, $04)
-	endTestFlagNClear()
+	cmp16TestFlagZClear($1111, $2222, "cmp16 $1111, $2222 endTestFlagZClear")
+	cmp16TestFlagZClear($2222, $1111, "cmp16 $2222, $1111 endTestFlagZClear")
+	cmp16TestFlagZSet($aaaa, $aaaa, "cmp16 $aaaa, $aaaa endTestFlagZSet")
+	cmp16TestFlagNSet($1111, $2222, "cmp16 $1111, $2222 endTestFlagNSet")
+	cmp16TestFlagNClear($2222, $1111, "cmp16 $2222, $1111 endTestFlagNClear")
+	cmp16TestFlagNClear($aaaa, $aaaa, "cmp16 $aaaa, $aaaa endTestFlagNClear")
 
 	add16Test($0001, $0002, $0003, "add16 low bits")
 	add16Test($0100, $0200, $0300, "add16 high bits")
