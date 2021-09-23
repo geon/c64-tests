@@ -52,6 +52,12 @@
 	.return requestedAddress
 }
 
+.function @allocateSpecificZpWord(requestedAddress) {
+	.var address = allocateSpecificZpByte(requestedAddress)
+	.eval allocateSpecificZpByte(requestedAddress+1)
+	.return address
+}
+
 .function @deallocateZpByte(freeAddress) {
 	.errorif freeZpAddresses.containsKey(freeAddress), "Address $"+toHexString(freeAddress)+" is aldready free."
 	.eval freeZpAddresses.put(freeAddress, true)
