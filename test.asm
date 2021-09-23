@@ -6,35 +6,63 @@ jmp start
 #import "worm.asm"
 #import "circular-buffer.asm"
 #import "wozPrintHex.asm"
+#import "zpallocator.asm"
+
+.eval zpAllocatorInit(List().add(hardwiredPortRegisters))
+
 
 .macro add16Test (a, b, wanted, title) {
 	beginTest(title)
+
+	// TODO: Just pass the immediate value, instead of using a temp ZP variable.
 	ldaxImmediate(a)
-	stax($02)
+	.var _02 = allocateZpWord()
+	stax(_02)
+
 	ldaxImmediate(b)
-	stax( $04)
-	add16( $02, $04)
-	endTest($02, wanted)
+	.var _04 = allocateZpWord()
+	stax(_04)
+
+	add16(_02, _04)
+
+	endTest(_02, wanted)
+
+	.eval deallocateZpWord(_02)
+	.eval deallocateZpWord(_04)
 }
 
 .macro add16_8Test (a, b, wanted, title) {
 	beginTest(title)
+
 	ldaxImmediate(a)
-	stax($02)
+	.var _02 = allocateZpWord()
+	stax(_02)
+
 	lda #b
-	sta $04
-	add16_8($02, $04)
-	endTest($02, wanted)
+	.var _04 = allocateZpByte()
+	sta _04
+	add16_8(_02, _04)
+
+	endTest(_02, wanted)
+
+	.eval deallocateZpWord(_02)
+	.eval deallocateZpByte(_04)
 }
 
 .macro multiply8Test (a, b, wanted, title) {
 	beginTest(title)
+
 	lda #a
-	sta $02
+	.var _02 = allocateZpByte()
+	sta _02
 	lda #b
-	sta $04
-	multiply8($02, $04)
-	endTest8($02, wanted)
+	.var _04 = allocateZpByte()
+	sta _04
+	multiply8(_02, _04)
+	endTest8(_02, wanted)
+
+	.eval deallocateZpByte(_02)
+	.eval deallocateZpByte(_04)
 }
 
 start:
