@@ -67,12 +67,20 @@ jmp start
 
 .macro cmpTest (a, b, title) {
 	beginTest(title)
+
 	lda #a
-	sta $02
+	.var _02 = allocateZpByte()
+	sta _02
+
 	lda #b
-	sta $04
-	lda $02
-	cmp $04
+	.var _04 = allocateZpByte()
+	sta _04
+
+	lda _02
+	cmp _04
+
+	.eval deallocateZpByte(_02)
+	.eval deallocateZpByte(_04)
 }
 
 .macro cmpTestFlagZClear (a, b, title) {
@@ -97,11 +105,19 @@ jmp start
 
 .macro cmp16Test (a, b, title) {
 	beginTest(title)
+
 	ldaxImmediate(a)
-	stax($02)
+	.var _02 = allocateZpWord()
+	stax(_02)
+
 	ldaxImmediate(b)
-	stax($04)
-	cmp16($02, $04)
+	.var _04 = allocateZpWord()
+	stax(_04)
+
+	cmp16(_02, _04)
+
+	.eval deallocateZpWord(_02)
+	.eval deallocateZpWord(_04)
 }
 
 .macro cmp16TestFlagZClear (a, b, title) {
