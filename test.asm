@@ -182,87 +182,115 @@ worm:
 	wormAllocate() // Allocate som bytes here
 !:
 
-	beginTest("Initialize worm. Length should be 0.")
-	wormInitialize(worm)
-	wormGetLength(worm, $02)
-	endTest($02, 0)
+	{
+		beginTest("Initialize worm. Length should be 0.")
+		wormInitialize(worm)
+		wormGetLength(worm, $02)
+		endTest($02, 0)
+	}
 
-	beginTest("Set position.")
-	ldaxImmediate($0100)
-	stax($02)
-	wormSetPosition(worm, $02)
-	wormGetPosition(worm, $02)
-	endTest($02, $0100)
+	{
+		beginTest("Set position.")
+		ldaxImmediate($0100)
+		stax($02)
+		wormSetPosition(worm, $02)
+		wormGetPosition(worm, $02)
+		endTest($02, $0100)
+	}
 
-	beginTest("Set direction. (down)")
-	lda #$01
-	sta $02
-	lda #$00
-	sta $03
-	wormSetDirection(worm, $02)
-	wormGetDirection(worm, $02)
-	endTest($02, $01)
+	{
+		beginTest("Set direction. (down)")
+		lda #$01
+		sta $02
+		lda #$00
+		sta $03
+		wormSetDirection(worm, $02)
+		wormGetDirection(worm, $02)
+		endTest($02, $01)
+	}
 
-	beginTest("Move forward.")
-	wormMoveForward(worm)
-	wormGetPosition(worm, $02)
-	endTest($02, $0128)
+	{
+		beginTest("Move forward.")
+		wormMoveForward(worm)
+		wormGetPosition(worm, $02)
+		endTest($02, $0128)
+	}
 
-	beginTest("Move right.")
-	lda #$00
-	sta $02
-	wormSetDirection(worm, $02)
-	wormMoveForward(worm)
-	wormGetPosition(worm, $02)
-	endTest($02, $0129)
+	{
+		beginTest("Move right.")
+		lda #$00
+		sta $02
+		wormSetDirection(worm, $02)
+		wormMoveForward(worm)
+		wormGetPosition(worm, $02)
+		endTest($02, $0129)
+	}
 
-	beginTest("Move up.")
-	lda #$03
-	sta $02
-	wormSetDirection(worm, $02)
-	wormMoveForward(worm)
-	wormGetPosition(worm, $02)
-	endTest($02, $0101)
+	{
+		beginTest("Move up.")
+		lda #$03
+		sta $02
+		wormSetDirection(worm, $02)
+		wormMoveForward(worm)
+		wormGetPosition(worm, $02)
+		endTest($02, $0101)
+	}
 
-	beginTest("Tail should be length 0.")
-	wormGetTail(worm, $02)
-	endTest8($02, 0)
+	{
+		beginTest("Tail should be length 0.")
+		wormGetTail(worm, $02)
+		endTest8($02, 0)
+	}
 
-	beginTest("Grow tail. Tail should still be length 0.")
-	wormGrowTail(worm)
-	wormGetTail(worm, $02)
-	endTest8($02, 0)
+	{
+		beginTest("Grow tail. Tail should still be length 0.")
+		wormGrowTail(worm)
+		wormGetTail(worm, $02)
+		endTest8($02, 0)
+	}
 
-	beginTest("After move. Tail should be length 1.")
-	wormMoveForward(worm)
-	wormGetTail(worm, $02)
-	endTest8($02, 1)
+	{
+		beginTest("After move. Tail should be length 1.")
+		wormMoveForward(worm)
+		wormGetTail(worm, $02)
+		endTest8($02, 1)
+	}
 
-	beginTest("Move more. Tail should stay 1.")
-	wormMoveForward(worm)
-	wormGetTail(worm, $02)
-	endTest8($02, 1)
+	{
+		beginTest("Move more. Tail should stay 1.")
+		wormMoveForward(worm)
+		wormGetTail(worm, $02)
+		endTest8($02, 1)
+	}
 
-	beginTest("Grow tail twice. Tail should stay 1.")
-	wormGrowTail(worm)
-	wormGrowTail(worm)
-	wormGetTail(worm, $02)
-	endTest8($02, 1)
+	{
+		beginTest("Grow tail twice. Tail should stay 1.")
+		wormGrowTail(worm)
+		wormGrowTail(worm)
+		wormGetTail(worm, $02)
+		endTest8($02, 1)
+	}
 
-	beginTest("Move 1. Tail should be 2.")
-	wormMoveForward(worm)
-	wormGetTail(worm, $02)
-	endTest8($02, 2)
+	{
+		beginTest("Move 1. Tail should be 2.")
+		wormMoveForward(worm)
+		wormGetTail(worm, $02)
+		endTest8($02, 2)
+	}
 
-	beginTest("Move 2. Tail should be 3.")
-	wormMoveForward(worm)
-	wormGetTail(worm, $02)
-	endTest8($02, 3)
+	{
+		beginTest("Move 2. Tail should be 3.")
+		wormMoveForward(worm)
+		wormGetTail(worm, $02)
+		endTest8($02, 3)
+	}
 
-	beginTest("Move more. Tail should stay 3.")
-	wormMoveForward(worm)
-	wormGetTail(worm, $02)
-	endTest8($02, 3)
+	{
+		beginTest("Move more. Tail should stay 3.")
+		wormMoveForward(worm)
+		wormGetTail(worm, $02)
+		endTest8($02, 3)
+	}
 
 	// CircularBuffer tests.
 	// Allocate and initialize circular buffer for tests.
