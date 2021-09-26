@@ -231,19 +231,22 @@ worm:
 		.eval deallocateZpByte(direction)
 
 		wormMoveForward(worm)
-		.var _02 = allocateZpByte()
-		wormGetPosition(worm, _02)
-		endTest(_02, $0129)
-		.eval deallocateZpByte(_02)
+		.var position = allocateZpWord()
+		wormGetPosition(worm, position)
+		endTest(position, $0129)
+		.eval deallocateZpWord(position)
 	}
 
 	{
 		beginTest("Move up.")
 		lda #$03
-		.var _02 = allocateZpByte()
-		sta _02
-		wormSetDirection(worm, _02)
+		.var direction = allocateZpByte()
+		sta direction
+		wormSetDirection(worm, direction)
+		.eval deallocateZpByte(direction)
 		wormMoveForward(worm)
+
+		.var _02 = allocateZpByte()
 		wormGetPosition(worm, _02)
 		endTest(_02, $0101)
 		.eval deallocateZpByte(_02)
