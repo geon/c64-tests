@@ -246,10 +246,10 @@ worm:
 		.eval deallocateZpByte(direction)
 		wormMoveForward(worm)
 
-		.var _02 = allocateZpByte()
-		wormGetPosition(worm, _02)
-		endTest(_02, $0101)
-		.eval deallocateZpByte(_02)
+		.var position = allocateZpWord()
+		wormGetPosition(worm, position)
+		endTest(position, $0101)
+		.eval deallocateZpWord(position)
 	}
 
 	{
