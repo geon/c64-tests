@@ -62,90 +62,95 @@ message:
 
 
 .macro endTestFlagZClear () {
+	.var zFlag = allocateZpByte()
+
+	// TODO: Replace with getting the flags (push flags, pop to a, and with bit pattern).
 	// Set $02 to content of z flag (0/1).
 	bne then // bne: branch on z = 0
 	jmp else
 then:
 	// z = 0
 	lda #0
-	.var _02 = allocateZpByte()
-	sta _02
+	sta zFlag
 	jmp endif
 else:
 	// z = 1
 	lda #1
-	sta _02
+	sta zFlag
 endif:
 
-	endTest8(_02, $00)
+	endTest8(zFlag, $00)
 
-	.eval deallocateZpByte(_02)
+	.eval deallocateZpByte(zFlag)
 }
 
 
 .macro endTestFlagZSet () {
+	.var zFlag = allocateZpByte()
+
 	// Set $02 to content of z flag (0/1).
 	bne then // bne: branch on z = 0
 	jmp else
 then:
 	// z = 0
 	lda #0
-	.var _02 = allocateZpByte()
-	sta _02
+	sta zFlag
 	jmp endif
 else:
 	// z = 1
 	lda #1
-	sta _02
+	sta zFlag
 endif:
 
-	endTest8(_02, $01)
+	endTest8(zFlag, $01)
 
-	.eval deallocateZpByte(_02)
+	.eval deallocateZpByte(zFlag)
 }
 
 
 .macro endTestFlagNClear () {
+	.var nFlag = allocateZpByte()
+
 	// Set $02 to content of n flag (0/1).
 	bmi then // bmi: branch on n = 1
 	jmp else
 then:
 	// n = 1
 	lda #1
-	.var _02 = allocateZpByte()
-	sta _02
+	sta nFlag
 	jmp endif
 else:
 	// n = 0
 	lda #0
-	sta _02
+	sta nFlag
 endif:
 
-	endTest8(_02, $00)
+	endTest8(nFlag, $00)
 
-	.eval deallocateZpByte(_02)
+	.eval deallocateZpByte(nFlag)
 }
 
 
 .macro endTestFlagNSet () {
+	.var nFlag = allocateZpByte()
+
 	// Set $02 to content of n flag (0/1).
 	bmi then // bmi: branch on n = 1
 	jmp else
 then:
 	// n = 1
 	lda #1
-	.var _02 = allocateZpByte()
-	sta _02
+	sta nFlag
 	jmp endif
 else:
 	// n = 0
 	lda #0
-	sta _02
+	sta nFlag
 endif:
 
-	endTest8(_02, $01)
+	endTest8(nFlag, $01)
 
-	.eval deallocateZpByte(_02)
+	.eval deallocateZpByte(nFlag)
 }
 
 
