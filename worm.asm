@@ -72,11 +72,15 @@
 table: .word 1, 40, -1, -40
 !:
 	// Find the offset in the table, by the direction.
-	.var _02 = allocateZpWord()
-	wormGetDirection(worm, _02)
-	rol _02 // Multiply by 2, because words, not bytes.
-	ldx _02
+	.var direction = allocateZpWord()
+	wormGetDirection(worm, direction)
+
+	// TODO: Add macro to convert direction to direction.
+	rol direction // Multiply by 2, because words, not bytes.
+	ldx direction
+	.eval deallocateZpWord(direction)
 	lda table, x
+	.var _02 = allocateZpWord()
 	sta _02
 	lda table+1, x
 	sta _02+1
