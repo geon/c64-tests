@@ -1,3 +1,6 @@
+#import "zpallocator.asm"
+
+
 .macro circularBufferAllocate () {
 	.byte $aa // end
 	.fill $ff, $bb // values
@@ -24,8 +27,10 @@
 .byte $dd
 .macro circularBufferInitialize (buffer) {
 	lda #0
-	sta $02
-	circularBufferSetEnd(buffer, $02)
+	.var _02 = allocateZpByte()
+	sta _02
+	circularBufferSetEnd(buffer, _02)
+	.eval deallocateZpByte(_02)
 }
 
 
