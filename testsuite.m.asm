@@ -3,9 +3,9 @@
 
 // TODO: Move out of zero page.
 // Needed between beginTest and afterTests, hence not deallocated.
-.var _fb = allocateSpecificZpWord($fb)
-.var _06 = allocateZpWord()
-.var _08 = allocateZpWord()
+.var lastMessageStringPointer = allocateSpecificZpWord($fb)
+.var lastResult = allocateZpWord()
+.var lastOkValue = allocateZpWord()
 
 
 .macro beforeTests () {
@@ -30,34 +30,34 @@ message:
 !:
 	lda #<message
 	ldx #>message
-	stax(_fb)
+	stax(lastMessageStringPointer)
 }
 
 
 .macro endTest (result, okValue) {
 	ldaxImmediate(okValue)
-	stax(_08)
+	stax(lastOkValue)
 	ldax(result)
-	stax(_06)
+	stax(lastResult)
 
-	cmp16(_08, _06)
+	cmp16(lastOkValue, lastResult)
 	bne(@error)
-	printPointer(_fb)
+	printPointer(lastMessageStringPointer)
 }
 
 
 .macro endTest8 (result, okValue) {
 	lda #okValue
 	ldx #$00
-	stax(_08)
+	stax(lastOkValue)
 	lda result
 	ldx #$00
-	stax(_06)
+	stax(lastResult)
 
 	cmp #okValue
 	bne(@error)
 
-	printPointer(_fb)
+	printPointer(lastMessageStringPointer)
 }
 
 
@@ -159,18 +159,18 @@ endif:
 @error:
 	printLine("****************************************")
 	printLine("Test failed:")
-	printPointer(_fb)
+	printPointer(lastMessageStringPointer)
 
 	printLine("Expected:")
-	lda _08+1
+	lda lastOkValue+1
 	jsr PRBYTE
-	lda _08
+	lda lastOkValue
 	jsr PRBYTE
 	printLine("")
 	printLine("Actual:")
-	lda _06+1
+	lda lastResult+1
 	jsr PRBYTE
-	lda _06
+	lda lastResult
 	jsr PRBYTE
 	printLine("")
 
