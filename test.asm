@@ -331,37 +331,47 @@ circularBuffer:
 !:
 	circularBufferInitialize(circularBuffer)
 
-	beginTest("Push should grow buffer.")
-	lda #$12
-	sta $04
-	circularBufferPush(circularBuffer, $04)
-	circularBufferGetLength(circularBuffer, $02)
-	endTest8($02, 1)
+	{
+		beginTest("Push should grow buffer.")
+		lda #$12
+		sta $04
+		circularBufferPush(circularBuffer, $04)
+		circularBufferGetLength(circularBuffer, $02)
+		endTest8($02, 1)
+	}
 
-	beginTest("The value should be in the buffer.")
-	circularBufferGetIterator(circularBuffer, $30)
-	ldy #0
-	lda ($30), y
-	sta $40
-	endTest8($40, $12)
+	{
+		beginTest("The value should be in the buffer.")
+		circularBufferGetIterator(circularBuffer, $30)
+		ldy #0
+		lda ($30), y
+		sta $40
+		endTest8($40, $12)
+	}
 
-	beginTest("Push second value.")
-	lda #$34
-	sta $04
-	circularBufferPush(circularBuffer, $04)
-	circularBufferGetIterator(circularBuffer, $02)
-	circularBufferGetIteratorNext(circularBuffer, $02, $08)
-	circularBufferGetIteratorNext(circularBuffer, $02, $08)
-	endTest8($08, $34)
+	{
+		beginTest("Push second value.")
+		lda #$34
+		sta $04
+		circularBufferPush(circularBuffer, $04)
+		circularBufferGetIterator(circularBuffer, $02)
+		circularBufferGetIteratorNext(circularBuffer, $02, $08)
+		circularBufferGetIteratorNext(circularBuffer, $02, $08)
+		endTest8($08, $34)
+	}
 
-// beginTest("Iterator should be null terminated.")
-// circularBufferGetIterator(circularBuffer, $02)
-// circularBufferGetIteratorNext(circularBuffer, $02, $08)
-// circularBufferGetIteratorNext(circularBuffer, $02, $08)
-// endTest($02, $0000)
+	// {
+	// 	beginTest("Iterator should be null terminated.")
+	// 	circularBufferGetIterator(circularBuffer, $02)
+	// 	circularBufferGetIteratorNext(circularBuffer, $02, $08)
+	// 	circularBufferGetIteratorNext(circularBuffer, $02, $08)
+	// 	endTest($02, $0000)
+	// }
 
-// 	beginTest("Pop first value.")
-// 	circularBufferPop(circularBuffer, $02)
-// 	endTest8($02, $12)
+	// {
+	// 	beginTest("Pop first value.")
+	// 	circularBufferPop(circularBuffer, $02)
+	// 	endTest8($02, $12)
+	// }
 
 	afterTests()
