@@ -75,14 +75,15 @@
 
 .macro circularBufferPush (buffer, value) {
 	// Save the value.
-	.var _02 = allocateZpWord()
-	circularBufferGetIterator(buffer, _02)
-	.var _06 = allocateZpByte()
-	circularBufferGetLength(buffer, _06)
-	add16_8(_02, _06)
+	.var elementPointer = allocateZpWord()
+	circularBufferGetIterator(buffer, elementPointer)
+	.var length = allocateZpByte()
+	circularBufferGetLength(buffer, length)
+	add16_8(elementPointer, length)
+	// TODO: Replace with macro.
 	lda value
 	ldy #0
-	sta (_02), y
+	sta (elementPointer), y
 
 	// Increment lenght
 	.var end = allocateZpWord()
@@ -91,8 +92,8 @@
 	circularBufferSetEnd(buffer, end)
 	.eval deallocateZpWord(end)
 
-	.eval deallocateZpWord(_02)
-	.eval deallocateZpByte(_06)
+	.eval deallocateZpWord(elementPointer)
+	.eval deallocateZpByte(length)
 }
 
 .macro circularBufferPop (buffer, return) {
