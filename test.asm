@@ -185,8 +185,7 @@ worm:
 	{
 		beginTest("Initialize worm. Length should be 0.")
 		wormInitialize(worm)
-		// TODO: Just using allocateZpByte() fails the test.
-		.var _02 = allocateSpecificZpByte($02)
+		.var _02 = allocateZpByte()
 		wormGetLength(worm, _02)
 		endTest8(_02, 0)
 		.eval deallocateZpByte(_02)
@@ -195,7 +194,7 @@ worm:
 	{
 		beginTest("Set position.")
 		ldaxImmediate($0100)
-		.var _02 = allocateSpecificZpWord($02)
+		.var _02 = allocateZpWord()
 		stax(_02)
 		wormSetPosition(worm, _02)
 		wormGetPosition(worm, _02)
@@ -206,10 +205,10 @@ worm:
 	{
 		beginTest("Set direction. (down)")
 		lda #$01
-		.var _02 = allocateSpecificZpByte($02)
+		.var _02 = allocateZpByte()
 		sta _02
 		lda #$00
-		.var _03 = allocateSpecificZpByte($03)
+		.var _03 = allocateZpByte()
 		sta _03
 		wormSetDirection(worm, _02)
 		wormGetDirection(worm, _02)
