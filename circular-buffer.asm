@@ -85,9 +85,11 @@
 	sta (_02), y
 
 	// Increment lenght
-	circularBufferGetEnd(buffer, _02)
-	inc _02
-	circularBufferSetEnd(buffer, _02)
+	.var end = allocateZpWord()
+	circularBufferGetEnd(buffer, end)
+	inc end
+	circularBufferSetEnd(buffer, end)
+	.eval deallocateZpWord(end)
 
 	.eval deallocateZpWord(_02)
 	.eval deallocateZpByte(_06)
