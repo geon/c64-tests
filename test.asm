@@ -335,27 +335,27 @@ circularBuffer:
 	{
 		beginTest("Push should grow buffer.")
 		lda #$12
-		.var _04 = allocateZpByte()
-		sta _04
-		circularBufferPush(circularBuffer, _04)
-		.var _02 = allocateZpByte()
-		circularBufferGetLength(circularBuffer, _02)
-		endTest8(_02, 1)
-		.eval deallocateZpByte(_02)
-		.eval deallocateZpByte(_04)
+		.var value = allocateZpByte()
+		sta value
+		circularBufferPush(circularBuffer, value)
+		.var length = allocateZpByte()
+		circularBufferGetLength(circularBuffer, length)
+		endTest8(length, 1)
+		.eval deallocateZpByte(length)
+		.eval deallocateZpByte(value)
 	}
 
 	{
 		beginTest("The value should be in the buffer.")
-		.var _30 = allocateZpWord()
-		circularBufferGetIterator(circularBuffer, _30)
+		.var iterator = allocateZpWord()
+		circularBufferGetIterator(circularBuffer, iterator)
 		ldy #0
-		lda (_30), y
-		.var _40 = allocateZpByte()
-		sta _40
-		endTest8(_40, $12)
-		.eval deallocateZpWord(_30)
-		.eval deallocateZpByte(_40)
+		lda (iterator), y
+		.var value = allocateZpByte()
+		sta value
+		endTest8(value, $12)
+		.eval deallocateZpWord(iterator)
+		.eval deallocateZpByte(value)
 	}
 
 	// {
