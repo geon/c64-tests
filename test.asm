@@ -185,35 +185,35 @@ worm:
 	{
 		beginTest("Initialize worm. Length should be 0.")
 		wormInitialize(worm)
-		.var _02 = allocateZpByte()
-		wormGetLength(worm, _02)
-		endTest8(_02, 0)
-		.eval deallocateZpByte(_02)
+		.var length = allocateZpByte()
+		wormGetLength(worm, length)
+		endTest8(length, 0)
+		.eval deallocateZpByte(length)
 	}
 
 	{
 		beginTest("Set position.")
 		ldaxImmediate($0100)
-		.var _02 = allocateZpWord()
-		stax(_02)
-		wormSetPosition(worm, _02)
-		wormGetPosition(worm, _02)
-		endTest(_02, $0100)
-		.eval deallocateZpWord(_02)
+		.var position = allocateZpWord()
+		stax(position)
+		wormSetPosition(worm, position)
+		wormGetPosition(worm, position)
+		endTest(position, $0100)
+		.eval deallocateZpWord(position)
 	}
 
 	{
 		beginTest("Set direction. (down)")
 		lda #$01
-		.var _02 = allocateZpByte()
-		sta _02
+		.var direction = allocateZpByte()
+		sta direction
 		lda #$00
 		.var _03 = allocateZpByte()
 		sta _03
-		wormSetDirection(worm, _02)
-		wormGetDirection(worm, _02)
-		endTest8(_02, $01)
-		.eval deallocateZpByte(_02)
+		wormSetDirection(worm, direction)
+		wormGetDirection(worm, direction)
+		endTest8(direction, $01)
+		.eval deallocateZpByte(direction)
 		.eval deallocateZpByte(_03)
 	}
 
