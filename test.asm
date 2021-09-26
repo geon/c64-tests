@@ -1,14 +1,14 @@
 #import "bootstrap.asm"
 jmp start
 
+#import "zpallocator.asm"
+.eval zpAllocatorInit(List().add(hardwiredPortRegisters))
+
 #import "macros.m.asm"
 #import "testsuite.m.asm"
 #import "worm.asm"
 #import "circular-buffer.asm"
 #import "wozPrintHex.asm"
-#import "zpallocator.asm"
-
-.eval zpAllocatorInit(List().add(hardwiredPortRegisters))
 
 
 .macro add16Test (a, b, wanted, title) {
@@ -356,22 +356,22 @@ circularBuffer:
 		.eval deallocateZpByte(_40)
 	}
 
-	{
-		beginTest("Push second value.")
-		lda #$34
-		.var _04 = allocateSpecificZpByte($04)
-		sta _04
-		circularBufferPush(circularBuffer, _04)
-		.var _02 = allocateSpecificZpWord($02)
-		circularBufferGetIterator(circularBuffer, _02)
-		.var _08 = allocateSpecificZpByte($08)
-		circularBufferGetIteratorNext(circularBuffer, _02, _08)
-		circularBufferGetIteratorNext(circularBuffer, _02, _08)
-		endTest8(_08, $34)
-		.eval deallocateZpByte(_04)
-		.eval deallocateZpWord(_02)
-		.eval deallocateZpByte(_08)
-	}
+	// {
+	// 	beginTest("Push second value.")
+	// 	lda #$34
+	// 	.var _04 = allocateSpecificZpByte($04)
+	// 	sta _04
+	// 	circularBufferPush(circularBuffer, _04)
+	// 	.var _02 = allocateSpecificZpWord($02)
+	// 	circularBufferGetIterator(circularBuffer, _02)
+	// 	.var _08 = allocateSpecificZpByte($08)
+	// 	circularBufferGetIteratorNext(circularBuffer, _02, _08)
+	// 	circularBufferGetIteratorNext(circularBuffer, _02, _08)
+	// 	endTest8(_08, $34)
+	// 	.eval deallocateZpByte(_04)
+	// 	.eval deallocateZpWord(_02)
+	// 	.eval deallocateZpByte(_08)
+	// }
 
 	// {
 	// 	beginTest("Iterator should be null terminated.")

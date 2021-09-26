@@ -1,3 +1,13 @@
+#import "zpallocator.asm"
+
+
+// TODO: Move out of zero page.
+// Needed between beginTest and afterTests, hence not deallocated.
+.var _fb = allocateSpecificZpWord($fb)
+.var _06 = allocateZpWord()
+.var _08 = allocateZpWord()
+
+
 .macro beforeTests () {
 	// Set screen mode to lower/upper case.
 	lda #23
@@ -20,34 +30,34 @@ message:
 !:
 	lda #<message
 	ldx #>message
-	stax($fb)
+	stax(_fb)
 }
 
 
 .macro endTest (result, okValue) {
 	ldaxImmediate(okValue)
-	stax($08)
+	stax(_08)
 	ldax(result)
-	stax($06)
+	stax(_06)
 
-	cmp16($08, $06)
+	cmp16(_08, _06)
 	bne(@error)
-	printPointer($fb)
+	printPointer(_fb)
 }
 
 
 .macro endTest8 (result, okValue) {
 	lda #okValue
 	ldx #$00
-	stax($08)
+	stax(_08)
 	lda result
 	ldx #$00
-	stax($06)
+	stax(_06)
 
 	cmp #okValue
 	bne(@error)
 
-	printPointer($fb)
+	printPointer(_fb)
 }
 
 
@@ -58,15 +68,18 @@ message:
 then:
 	// z = 0
 	lda #0
-	sta $02
+	.var _02 = allocateZpByte()
+	sta _02
 	jmp endif
 else:
 	// z = 1
 	lda #1
-	sta $02
+	sta _02
 endif:
 
-	endTest8($02, $00)
+	endTest8(_02, $00)
+
+	.eval deallocateZpByte(_02)
 }
 
 
@@ -77,15 +90,18 @@ endif:
 then:
 	// z = 0
 	lda #0
-	sta $02
+	.var _02 = allocateZpByte()
+	sta _02
 	jmp endif
 else:
 	// z = 1
 	lda #1
-	sta $02
+	sta _02
 endif:
 
-	endTest8($02, $01)
+	endTest8(_02, $01)
+
+	.eval deallocateZpByte(_02)
 }
 
 
@@ -96,15 +112,18 @@ endif:
 then:
 	// n = 1
 	lda #1
-	sta $02
+	.var _02 = allocateZpByte()
+	sta _02
 	jmp endif
 else:
 	// n = 0
 	lda #0
-	sta $02
+	sta _02
 endif:
 
-	endTest8($02, $00)
+	endTest8(_02, $00)
+
+	.eval deallocateZpByte(_02)
 }
 
 
@@ -115,15 +134,18 @@ endif:
 then:
 	// n = 1
 	lda #1
-	sta $02
+	.var _02 = allocateZpByte()
+	sta _02
 	jmp endif
 else:
 	// n = 0
 	lda #0
-	sta $02
+	sta _02
 endif:
 
-	endTest8($02, $01)
+	endTest8(_02, $01)
+
+	.eval deallocateZpByte(_02)
 }
 
 
@@ -137,18 +159,18 @@ endif:
 @error:
 	printLine("****************************************")
 	printLine("Test failed:")
-	printPointer($fb)
+	printPointer(_fb)
 
 	printLine("Expected:")
-	lda $08+1
+	lda _08+1
 	jsr PRBYTE
-	lda $08
+	lda _08
 	jsr PRBYTE
 	printLine("")
 	printLine("Actual:")
-	lda $06+1
+	lda _06+1
 	jsr PRBYTE
-	lda $06
+	lda _06
 	jsr PRBYTE
 	printLine("")
 
