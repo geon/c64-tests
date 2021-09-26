@@ -254,74 +254,74 @@ worm:
 
 	{
 		beginTest("Tail should be length 0.")
-		.var _02 = allocateZpByte()
-		wormGetTail(worm, _02)
-		endTest8(_02, 0)
-		.eval deallocateZpByte(_02)
+		.var tailLength = allocateZpByte()
+		wormGetTail(worm, tailLength)
+		endTest8(tailLength, 0)
+		.eval deallocateZpByte(tailLength)
 	}
 
 	{
 		beginTest("Grow tail. Tail should still be length 0.")
 		wormGrowTail(worm)
-		.var _02 = allocateZpByte()
-		wormGetTail(worm, _02)
-		endTest8(_02, 0)
-		.eval deallocateZpByte(_02)
+		.var tailLength = allocateZpByte()
+		wormGetTail(worm, tailLength)
+		endTest8(tailLength, 0)
+		.eval deallocateZpByte(tailLength)
 	}
 
 	{
 		beginTest("After move. Tail should be length 1.")
 		wormMoveForward(worm)
-		.var _02 = allocateZpByte()
-		wormGetTail(worm, _02)
-		endTest8(_02, 1)
-		.eval deallocateZpByte(_02)
+		.var tailLength = allocateZpByte()
+		wormGetTail(worm, tailLength)
+		endTest8(tailLength, 1)
+		.eval deallocateZpByte(tailLength)
 	}
 
 	{
 		beginTest("Move more. Tail should stay 1.")
 		wormMoveForward(worm)
-		.var _02 = allocateZpByte()
-		wormGetTail(worm, _02)
-		endTest8(_02, 1)
-		.eval deallocateZpByte(_02)
+		.var tailLength = allocateZpByte()
+		wormGetTail(worm, tailLength)
+		endTest8(tailLength, 1)
+		.eval deallocateZpByte(tailLength)
 	}
 
 	{
 		beginTest("Grow tail twice. Tail should stay 1.")
 		wormGrowTail(worm)
 		wormGrowTail(worm)
-		.var _02 = allocateZpByte()
-		wormGetTail(worm, _02)
-		endTest8(_02, 1)
-		.eval deallocateZpByte(_02)
+		.var tailLength = allocateZpByte()
+		wormGetTail(worm, tailLength)
+		endTest8(tailLength, 1)
+		.eval deallocateZpByte(tailLength)
 	}
 
 	{
 		beginTest("Move 1. Tail should be 2.")
 		wormMoveForward(worm)
-		.var _02 = allocateZpByte()
-		wormGetTail(worm, _02)
-		endTest8(_02, 2)
-		.eval deallocateZpByte(_02)
+		.var tailLength = allocateZpByte()
+		wormGetTail(worm, tailLength)
+		endTest8(tailLength, 2)
+		.eval deallocateZpByte(tailLength)
 	}
 
 	{
 		beginTest("Move 2. Tail should be 3.")
 		wormMoveForward(worm)
-		.var _02 = allocateZpByte()
-		wormGetTail(worm, _02)
-		endTest8(_02, 3)
-		.eval deallocateZpByte(_02)
+		.var tailLength = allocateZpByte()
+		wormGetTail(worm, tailLength)
+		endTest8(tailLength, 3)
+		.eval deallocateZpByte(tailLength)
 	}
 
 	{
 		beginTest("Move more. Tail should stay 3.")
 		wormMoveForward(worm)
-		.var _02 = allocateZpByte()
-		wormGetTail(worm, _02)
-		endTest8(_02, 3)
-		.eval deallocateZpByte(_02)
+		.var tailLength = allocateZpByte()
+		wormGetTail(worm, tailLength)
+		endTest8(tailLength, 3)
+		.eval deallocateZpByte(tailLength)
 	}
 
 	// CircularBuffer tests.
