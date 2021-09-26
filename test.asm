@@ -216,10 +216,10 @@ worm:
 	{
 		beginTest("Move forward.")
 		wormMoveForward(worm)
-		.var _02 = allocateZpWord()
-		wormGetPosition(worm, _02)
-		endTest(_02, $0128)
-		.eval deallocateZpWord(_02)
+		.var position = allocateZpWord()
+		wormGetPosition(worm, position)
+		endTest(position, $0128)
+		.eval deallocateZpWord(position)
 	}
 
 	{
