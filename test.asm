@@ -188,7 +188,7 @@ worm:
 		// TODO: Just using allocateZpByte() fails the test.
 		.var _02 = allocateSpecificZpByte($02)
 		wormGetLength(worm, _02)
-		endTest(_02, 0)
+		endTest8(_02, 0)
 		.eval deallocateZpByte(_02)
 	}
 
@@ -213,7 +213,7 @@ worm:
 		sta _03
 		wormSetDirection(worm, _02)
 		wormGetDirection(worm, _02)
-		endTest(_02, $01)
+		endTest8(_02, $01)
 		.eval deallocateZpByte(_02)
 		.eval deallocateZpByte(_03)
 	}
