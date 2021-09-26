@@ -82,14 +82,16 @@ table: .word 1, 40, -1, -40
 	sta _02+1
 
 	// Move the head.
-	.var _04 = allocateZpWord()
-	wormGetPosition(worm, _04)
-	add16(_04, _02)
-	wormSetPosition(worm, _04)
+	.var position = allocateZpWord()
+	wormGetPosition(worm, position)
+	add16(position, _02)
+	wormSetPosition(worm, position)
+	.eval deallocateZpWord(position)
 
 	// Grow if too short.
 	.var length = allocateZpByte()
 	wormGetLength(worm, length)
+	.var _04 = allocateZpWord()
 	wormGetWantedLength(worm, _04)
 	lda length
 	cmp _04
