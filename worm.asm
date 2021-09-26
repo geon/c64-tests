@@ -116,9 +116,9 @@ table: .word 1, 40, -1, -40
 
 
 .macro wormGrowTail (worm) {
-	.var _02 = allocateZpByte()
-	wormGetWantedLength(worm, _02)
-	inc _02
-	wormSetWantedLength(worm, _02)
-	.eval deallocateZpByte(_02)
+	.var wantedLength = allocateZpByte()
+	wormGetWantedLength(worm, wantedLength)
+	inc wantedLength
+	wormSetWantedLength(worm, wantedLength)
+	.eval deallocateZpByte(wantedLength)
 }
