@@ -39,21 +39,12 @@
 	stax(address)
 }
 
-circularBufferGetIteratorNext_iterator:
-	.word $00
-circularBufferGetIteratorNext_return:
-	.byte $00
-.macro circularBufferGetIteratorNext(buffer, iterator, return){
-	// Transfer args to variables at once.
-	ldax(iterator)
-	stax(circularBufferGetIteratorNext_iterator)
-	ldax(return)
-	stax(circularBufferGetIteratorNext_return)
 
+.macro circularBufferGetIteratorNext(buffer, iterator, return){
 	// Read the value to return.
 	ldy #0
-	lda (circularBufferGetIteratorNext_iterator), y
-	sta circularBufferGetIteratorNext_return
+	lda (iterator), y
+	sta return
 
 	// Find end pointer. (One step past the last element.)
 	circularBufferGetIterator(buffer, $10)
@@ -63,13 +54,13 @@ circularBufferGetIteratorNext_return:
 	// Advance iterator.
 	lda #1
 	sta $06
-	add16_8(circularBufferGetIteratorNext_iterator, $06)
+	add16_8(iterator, $06)
 
-	cmp16(circularBufferGetIteratorNext_iterator, $10)
+	cmp16(iterator, $10)
 	bmi !+
 	// Out of range, so return null pointer.
 	ldaxImmediate($0000)
-	stax(circularBufferGetIteratorNext_iterator)
+	stax(iterator)
 !:
 }
 
