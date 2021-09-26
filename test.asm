@@ -207,14 +207,10 @@ worm:
 		lda #$01
 		.var direction = allocateZpByte()
 		sta direction
-		lda #$00
-		.var _03 = allocateZpByte()
-		sta _03
 		wormSetDirection(worm, direction)
 		wormGetDirection(worm, direction)
 		endTest8(direction, $01)
 		.eval deallocateZpByte(direction)
-		.eval deallocateZpByte(_03)
 	}
 
 	{
