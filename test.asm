@@ -16,71 +16,71 @@ jmp start
 
 	// TODO: Just pass the immediate value, instead of using a temp ZP variable.
 	ldaxImmediate(a)
-	.var _02 = allocateZpWord()
-	stax(_02)
+	.var result = allocateZpWord()
+	stax(result)
 
 	ldaxImmediate(b)
-	.var _04 = allocateZpWord()
-	stax(_04)
+	.var b2 = allocateZpWord()
+	stax(b2)
 
-	add16(_02, _04)
+	add16(result, b2)
 
-	endTest(_02, wanted)
+	endTest(result, wanted)
 
-	.eval deallocateZpWord(_02)
-	.eval deallocateZpWord(_04)
+	.eval deallocateZpWord(result)
+	.eval deallocateZpWord(b2)
 }
 
 .macro add16_8Test (a, b, wanted, title) {
 	beginTest(title)
 
 	ldaxImmediate(a)
-	.var _02 = allocateZpWord()
-	stax(_02)
+	.var result = allocateZpWord()
+	stax(result)
 
 	lda #b
-	.var _04 = allocateZpByte()
-	sta _04
-	add16_8(_02, _04)
+	.var b2 = allocateZpByte()
+	sta b2
+	add16_8(result, b2)
 
-	endTest(_02, wanted)
+	endTest(result, wanted)
 
-	.eval deallocateZpWord(_02)
-	.eval deallocateZpByte(_04)
+	.eval deallocateZpWord(result)
+	.eval deallocateZpByte(b2)
 }
 
 .macro multiply8Test (a, b, wanted, title) {
 	beginTest(title)
 
 	lda #a
-	.var _02 = allocateZpByte()
-	sta _02
+	.var result = allocateZpByte()
+	sta result
 	lda #b
-	.var _04 = allocateZpByte()
-	sta _04
-	multiply8(_02, _04)
-	endTest8(_02, wanted)
+	.var b2 = allocateZpByte()
+	sta b2
+	multiply8(result, b2)
+	endTest8(result, wanted)
 
-	.eval deallocateZpByte(_02)
-	.eval deallocateZpByte(_04)
+	.eval deallocateZpByte(result)
+	.eval deallocateZpByte(b2)
 }
 
 .macro cmpTest (a, b, title) {
 	beginTest(title)
 
 	lda #a
-	.var _02 = allocateZpByte()
-	sta _02
+	.var a2 = allocateZpByte()
+	sta a2
 
 	lda #b
-	.var _04 = allocateZpByte()
-	sta _04
+	.var b2 = allocateZpByte()
+	sta b2
 
-	lda _02
-	cmp _04
+	lda a2
+	cmp b2
 
-	.eval deallocateZpByte(_02)
-	.eval deallocateZpByte(_04)
+	.eval deallocateZpByte(a2)
+	.eval deallocateZpByte(b2)
 }
 
 .macro cmpTestFlagZClear (a, b, title) {
@@ -107,17 +107,17 @@ jmp start
 	beginTest(title)
 
 	ldaxImmediate(a)
-	.var _02 = allocateZpWord()
-	stax(_02)
+	.var a2 = allocateZpWord()
+	stax(a2)
 
 	ldaxImmediate(b)
-	.var _04 = allocateZpWord()
-	stax(_04)
+	.var b2 = allocateZpWord()
+	stax(b2)
 
-	cmp16(_02, _04)
+	cmp16(a2, b2)
 
-	.eval deallocateZpWord(_02)
-	.eval deallocateZpWord(_04)
+	.eval deallocateZpWord(a2)
+	.eval deallocateZpWord(b2)
 }
 
 .macro cmp16TestFlagZClear (a, b, title) {
