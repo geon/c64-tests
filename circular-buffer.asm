@@ -46,43 +46,58 @@
 	sta return
 
 	// Find end pointer. (One step past the last element.)
-	circularBufferGetIterator(buffer, $10)
-	circularBufferGetLength(buffer, $04)
-	add16_8($10, $04)
+	.var _10 = allocateZpWord()
+	circularBufferGetIterator(buffer, _10)
+	.var _04 = allocateZpByte()
+	circularBufferGetLength(buffer, _04)
+	add16_8(_10, _04)
 
 	// Advance iterator.
 	lda #1
-	sta $06
-	add16_8(iterator, $06)
+	.var _06 = allocateZpByte()
+	sta _06
+	add16_8(iterator, _06)
 
-	cmp16(iterator, $10)
+	cmp16(iterator, _10)
 	bmi !+
 	// Out of range, so return null pointer.
 	ldaxImmediate($0000)
 	stax(iterator)
 !:
+
+	.eval deallocateZpWord(_10)
+	.eval deallocateZpByte(_04)
+	.eval deallocateZpByte(_06)
 }
 
 
 .macro circularBufferPush (buffer, value) {
 	// Save the value.
-	circularBufferGetIterator(buffer, $02)
-	circularBufferGetLength(buffer, $06)
-	add16_8( $02, $06)
+	.var _02 = allocateZpWord()
+	circularBufferGetIterator(buffer, _02)
+	.var _06 = allocateZpByte()
+	circularBufferGetLength(buffer, _06)
+	add16_8(_02, _06)
 	lda value
 	ldy #0
-	sta ($02), y
+	sta (_02), y
 
 	// Increment lenght
-	circularBufferGetEnd(buffer, $02)
-	inc $02
-	circularBufferSetEnd(buffer, $02)
+	circularBufferGetEnd(buffer, _02)
+	inc _02
+	circularBufferSetEnd(buffer, _02)
+
+	.eval deallocateZpWord(_02)
+	.eval deallocateZpByte(_06)
 }
 
 .macro circularBufferPop (buffer, return) {
 	// Save the value.
-	circularBufferGetIterator( buffer,  $02)
+	.var _02 = allocateZpWord()
+	circularBufferGetIterator(buffer,  _02)
 	ldy #0//
-	lda ($02), y
+	lda (_02), y
 	sta return
+
+	.eval deallocateZpWord(_02)
 }
