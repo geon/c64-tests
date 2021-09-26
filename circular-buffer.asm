@@ -25,11 +25,12 @@
 
 
 .macro circularBufferInitialize (buffer) {
+	// TODO: Replace with immediate value.
 	lda #0
-	.var _02 = allocateZpByte()
-	sta _02
-	circularBufferSetEnd(buffer, _02)
-	.eval deallocateZpByte(_02)
+	.var zero = allocateZpByte()
+	sta zero
+	circularBufferSetEnd(buffer, zero)
+	.eval deallocateZpByte(zero)
 }
 
 
