@@ -88,14 +88,16 @@ table: .word 1, 40, -1, -40
 	wormSetPosition(worm, _04)
 
 	// Grow if too short.
-	wormGetLength(worm, _02)
+	.var length = allocateZpByte()
+	wormGetLength(worm, length)
 	wormGetWantedLength(worm, _04)
-	lda _02
+	lda length
 	cmp _04
 	bpl !+
-	inc _02
-	wormSetLength(worm, _02)
+	inc length
+	wormSetLength(worm, length)
 !:
+	.eval deallocateZpByte(length)
 
 	.eval deallocateZpWord(_02)
 	.eval deallocateZpWord(_04)
