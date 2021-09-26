@@ -47,28 +47,29 @@
 	sta return
 
 	// Find end pointer. (One step past the last element.)
-	.var _10 = allocateZpWord()
-	circularBufferGetIterator(buffer, _10)
-	.var _04 = allocateZpByte()
-	circularBufferGetLength(buffer, _04)
-	add16_8(_10, _04)
+	.var end = allocateZpWord()
+	circularBufferGetIterator(buffer, end)
+	.var length = allocateZpByte()
+	circularBufferGetLength(buffer, length)
+	add16_8(end, length)
 
 	// Advance iterator.
+	// TODO: Replace with immediate value.
 	lda #1
-	.var _06 = allocateZpByte()
-	sta _06
-	add16_8(iterator, _06)
+	.var one = allocateZpByte()
+	sta one
+	add16_8(iterator, one)
 
-	cmp16(iterator, _10)
+	cmp16(iterator, end)
 	bmi !+
 	// Out of range, so return null pointer.
 	ldaxImmediate($0000)
 	stax(iterator)
 !:
 
-	.eval deallocateZpWord(_10)
-	.eval deallocateZpByte(_04)
-	.eval deallocateZpByte(_06)
+	.eval deallocateZpWord(end)
+	.eval deallocateZpByte(length)
+	.eval deallocateZpByte(one)
 }
 
 
