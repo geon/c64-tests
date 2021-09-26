@@ -334,30 +334,44 @@ circularBuffer:
 	{
 		beginTest("Push should grow buffer.")
 		lda #$12
-		sta $04
-		circularBufferPush(circularBuffer, $04)
-		circularBufferGetLength(circularBuffer, $02)
-		endTest8($02, 1)
+		.var _04 = allocateZpByte()
+		sta _04
+		circularBufferPush(circularBuffer, _04)
+		.var _02 = allocateZpByte()
+		circularBufferGetLength(circularBuffer, _02)
+		endTest8(_02, 1)
+		.eval deallocateZpByte(_02)
+		.eval deallocateZpByte(_04)
 	}
 
 	{
 		beginTest("The value should be in the buffer.")
-		circularBufferGetIterator(circularBuffer, $30)
+		.var _30 = allocateZpWord()
+		circularBufferGetIterator(circularBuffer, _30)
 		ldy #0
-		lda ($30), y
-		sta $40
-		endTest8($40, $12)
+		lda (_30), y
+		.var _40 = allocateZpByte()
+		sta _40
+		endTest8(_40, $12)
+		.eval deallocateZpWord(_30)
+		.eval deallocateZpByte(_40)
 	}
 
 	{
 		beginTest("Push second value.")
 		lda #$34
-		sta $04
-		circularBufferPush(circularBuffer, $04)
-		circularBufferGetIterator(circularBuffer, $02)
-		circularBufferGetIteratorNext(circularBuffer, $02, $08)
-		circularBufferGetIteratorNext(circularBuffer, $02, $08)
-		endTest8($08, $34)
+		.var _04 = allocateSpecificZpByte($04)
+		sta _04
+		circularBufferPush(circularBuffer, _04)
+		.var _02 = allocateSpecificZpWord($02)
+		circularBufferGetIterator(circularBuffer, _02)
+		.var _08 = allocateSpecificZpByte($08)
+		circularBufferGetIteratorNext(circularBuffer, _02, _08)
+		circularBufferGetIteratorNext(circularBuffer, _02, _08)
+		endTest8(_08, $34)
+		.eval deallocateZpByte(_04)
+		.eval deallocateZpWord(_02)
+		.eval deallocateZpByte(_08)
 	}
 
 	// {
