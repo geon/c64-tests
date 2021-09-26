@@ -80,15 +80,15 @@ table: .word 1, 40, -1, -40
 	ldx direction
 	.eval deallocateZpWord(direction)
 	lda table, x
-	.var _02 = allocateZpWord()
-	sta _02
+	.var offset = allocateZpWord()
+	sta offset
 	lda table+1, x
-	sta _02+1
+	sta offset+1
 
 	// Move the head.
 	.var position = allocateZpWord()
 	wormGetPosition(worm, position)
-	add16(position, _02)
+	add16(position, offset)
 	wormSetPosition(worm, position)
 	.eval deallocateZpWord(position)
 
@@ -105,7 +105,7 @@ table: .word 1, 40, -1, -40
 !:
 	.eval deallocateZpByte(length)
 
-	.eval deallocateZpWord(_02)
+	.eval deallocateZpWord(offset)
 	.eval deallocateZpWord(_04)
 }
 
