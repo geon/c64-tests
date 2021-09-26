@@ -24,7 +24,6 @@
 }
 
 
-.byte $dd
 .macro circularBufferInitialize (buffer) {
 	lda #0
 	.var _02 = allocateZpByte()
