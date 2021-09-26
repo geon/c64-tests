@@ -11,9 +11,10 @@
 
 .macro wormInitialize (worm) {
 	lda #0
-	sta $02
-	wormSetLength(worm, $02)
-	wormSetWantedLength(worm, $02)
+	.var _02 = allocateZpByte()
+	sta _02
+	wormSetLength(worm, _02)
+	wormSetWantedLength(worm, _02)
 }
 
 
