@@ -95,10 +95,10 @@ table: .word 1, 40, -1, -40
 	// Grow if too short.
 	.var length = allocateZpByte()
 	wormGetLength(worm, length)
-	.var _04 = allocateZpWord()
-	wormGetWantedLength(worm, _04)
+	.var wantedLength = allocateZpByte()
+	wormGetWantedLength(worm, wantedLength)
 	lda length
-	cmp _04
+	cmp wantedLength
 	bpl !+
 	inc length
 	wormSetLength(worm, length)
@@ -106,7 +106,7 @@ table: .word 1, 40, -1, -40
 	.eval deallocateZpByte(length)
 
 	.eval deallocateZpWord(offset)
-	.eval deallocateZpWord(_04)
+	.eval deallocateZpByte(wantedLength)
 }
 
 
