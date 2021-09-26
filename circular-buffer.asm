@@ -95,7 +95,7 @@
 	// Save the value.
 	.var _02 = allocateZpWord()
 	circularBufferGetIterator(buffer,  _02)
-	ldy #0//
+	ldy #0
 	lda (_02), y
 	sta return
 
