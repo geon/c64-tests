@@ -98,11 +98,11 @@
 
 .macro circularBufferPop (buffer, return) {
 	// Save the value.
-	.var _02 = allocateZpWord()
-	circularBufferGetIterator(buffer,  _02)
+	.var elementPointer = allocateZpWord()
+	circularBufferGetIterator(buffer,  elementPointer)
 	ldy #0
-	lda (_02), y
+	lda (elementPointer), y
 	sta return
 
-	.eval deallocateZpWord(_02)
+	.eval deallocateZpWord(elementPointer)
 }
